@@ -1,47 +1,11 @@
 <?php
     include("../top.php");
-    $css_rules = $user->getCssRules(); 
-    $aspects_table = $config['tables']['aspects_table'];
-    $aspect_preferences_table = $config['tables']['aspect_preferences_table'];
     $uid = $_SESSION['session_userid'];
     $access = $_SESSION['session_accessLevel'];
-    $q = "SELECT * FROM $aspects_table WHERE access >= '$access' ORDER BY id";
-    $sth = $dbh->prepare($q);
-    $sth->execute(array());
-    $size = $sth->rowCount();
-    while($row = $sth->fetch()){
-        $id = $row['id']; 
-        $command = $row['command'];
-        $fun = $row['function']; 
-        $div = $row['div'];
-        $pc = $row['pref_column'];
-        $tit = $row['title'];
-        $desc = $row['desc'];
-        $css = $row['css_class'];
-        $sv = $row['session_var'];
-        $commands[] = $command;
-        $funs[$command] = $fun;
-        $divs[$command] = $div;
-        $pcs[$command] = $pc;
-        $tits[$command] = $tit;
-        $descs[$command] = $desc;
-        $csss[$command] = $css;
-        $ison[$command] = $_SESSION[$sv];
-    }
 
-    $q = "SELECT * FROM commands WHERE access>= '$access'";
-    $sth = $dbh->prepare($q);
-    $sth->execute(array());
-    while($row = $sth->fetch()){
-        $cmd = $row['keyword'];
-        $doc_id = $row['document_id'];
-        $doc_q = "SELECT content FROM documents WHERE id=?";
-        $doc_sth = $dbh->prepare($doc_q);
-        $doc_sth->execute(array($doc_id));
-        $doc_row = $doc_sth->fetch();
-        $cmds[$cmd] = $doc_row['content'];
-        
-    }
+    $css_rules = $user->getCssRules(); 
+    $aspects = $myModel->getAspects($access);
+    $commands = $myModel->getCommands($access);
 ?>
 
 var asgConfig = {
@@ -72,7 +36,12 @@ var asgConfig = {
 
     executeCommand: function(msg){
 <?php
-        foreach($cmds as $key => $fun){
+        foreach($commands as $com){
+            $key = $com->get('keyword');
+            $doc_id = $com->get('document_id');
+            $doc = new Document($doc_id);
+            $fun = $doc->get('content');
+
             print "if(msg.indexOf('/$key')==0){";
             print $fun;
             print "}";
@@ -88,15 +57,18 @@ var asgConfig = {
         var returnJSON =
 <?php
         print "{";
-        foreach($commands as $cmd){
-            $fun = $funs[$cmd];
-            $div = $divs[$cmd];
-            $pc = $pcs[$cmd];
-            $tit = $tits[$cmd];
-            $desc = $descs[$cmd];
-            $css = $csss[$cmd];
-            $on = $ison[$cmd];
-            $ret .= "\"$cmd\": { \"fun\": \"$fun\", \"div\": \"$div\", \"pref\": \"$pc\", \"title\": \"$tit\", \"desc\": \"$desc\", \"css\": \"$css\", \"on\": \"$on\" },";
+        foreach($aspects as $asp){        
+            $id = $asp->get('id'); 
+            $command = $asp->get('command');
+            $fun = $asp->get('function'); 
+            $div = $asp->get('div');
+            $pc = $asp->get('pref_column');
+            $tit = $asp->get('title');
+            $desc = $asp->get('desc');
+            $css = $asp->get('css_class');
+            $sv = $asp->get('session_var');
+            $on = $_SESSION[$sv];
+            $ret .= "\"$command\": { \"fun\": \"$fun\", \"div\": \"$div\", \"pref\": \"$pc\", \"title\": \"$tit\", \"desc\": \"$desc\", \"css\": \"$css\", \"on\": \"$on\" },";
         }
         $ret = substr($ret,0,-1);
         echo $ret;
