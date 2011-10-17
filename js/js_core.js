@@ -2,6 +2,7 @@
         $(document).ready(runScript);
     
         function runScript(){
+           
            var aspects = asgConfig.getAspects();
            asgPoller.lpStart(1);
            asgPoller.apStart();

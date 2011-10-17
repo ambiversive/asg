@@ -18,8 +18,16 @@
     <script type="text/javascript" src="js/js_init.php"></script>
     <script type="text/javascript" src="js/js_polling.js"></script>
     <script type="text/javascript" src="js/js_core.js"></script>
+    <script type="text/javascript" src="apps/ace/ace.js" charset="utf-8"></script>
+    <script type="text/javascript" src="apps/ace/theme-twilight.js" charset="utf-8"></script>
+    <script type="text/javascript" src="apps/ace/mode-css.js" charset="utf-8"></script>
+    <script type="text/javascript" src="apps/ace/mode-html.js" charset="utf-8"></script>
+    <script type="text/javascript" src="apps/ace/mode-javascript.js" charset="utf-8"></script>
+    <script type="text/javascript" src="apps/ace/mode-php.js" charset="utf-8"></script>
+
 
     <script type="text/javascript">
+ 
         <?php
            
              if($_GET['newbie']==1){
@@ -85,8 +93,6 @@
   
  } 
 ?>
-
-
 </body>
 
 </html>
