@@ -1,5 +1,4 @@
 <?php
-    //session_start();
     include_once("../database/config.php");
     include_once("../database/db_connect.php");
     include_once("../classes/core/User.php");
@@ -8,7 +7,7 @@
     $aspect_preferences_table = $config['tables']['aspect_preferences_table'];
 
     $dbh = db_connect();
-    $uid = 1;//$_POST['uid'];// $_SESSION['session_userid'];
+    $uid = $_POST['uid'];
     $user = new User($uid);
     $user->updateLastActive();
     $time = time();
