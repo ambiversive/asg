@@ -30,6 +30,7 @@ $config = array(
         "item_instances_table" => "item_instances",
         "item_actions_table" => "item_actions",
         "links_table" => "links",
-        "link_votes_table" => "link_votes"
+        "link_votes_table" => "link_votes",
+        "rss_feeds_table" => "rss_feeds"
    )
 );

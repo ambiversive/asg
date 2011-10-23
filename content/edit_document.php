@@ -16,7 +16,7 @@
     }
 
     if($session_loggedIn == $uniqueID){
-
+        $iContent = trim($iContent);
         $doc = new Document($iPageID);
         $doc->setTitle($newSubTitle);
         $doc->setContent($iContent);
