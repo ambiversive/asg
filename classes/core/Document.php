@@ -35,6 +35,17 @@ class Document extends DbTable {
         return $author;
     }
  
+    function getParent(){
+        $parent_id = $this->get('parent_id');
+        if($parent_id != 0){
+            $parent = new Document($parent_id);
+            return $parent;
+        }else{
+            return 0;
+        }
+
+    }
+
     function getParentId(){
         return $this->get('parent_id');
     }

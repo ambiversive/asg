@@ -6,27 +6,8 @@
     include_once("captcha/Captcha.php");
 
     function __autoload($classname){ 
-        $drop = false;
-
-        if(strpos($classname,'Item') === FALSE){ 
-            $drop = true;
-        }else{
-            include_once("classes/items/$classname.php"); 
-            $drop = false;
-        }
-
-
-        if(strpos($classname,'Link') === FALSE){ 
-            $drop = true;
-        }else{
-            include_once("classes/links/$classname.php"); 
-            $drop = false;
-        }
-
-        if($drop){
-            include_once("classes/core/$classname.php"); 
-        }
-     }
+      include_once("classes/core/$classname.php"); 
+    }
 
     $dbh = db_connect();
     $uid = $_SESSION['session_userid'];

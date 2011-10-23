@@ -14,11 +14,12 @@ var asgRss = {
     success: function(response, fid){
         whereTo = $('#feed_'+fid);
         whereTo.html('');
+        $.scrollTo(whereTo, 800);
         for(link in response){
             title = response[link].title;
             title_ = asgRss.addslashes(title);
             url = response[link].url;
-            whereTo.append('<p><a href="'+url+'">'+title+'</a>&nbsp;<a onclick="asgConfig.simcom(\'/bload '+url+'\')" title="load in metabrowser">&#9724;</a>&nbsp;<a title="save locally" onclick="asgConfig.submitLink(\''+url+'\',\''+title_+'\');">&#9670;</a></p>');
+            whereTo.append('<p><a target="new" href="'+url+'">'+title+'</a>&nbsp;<a onclick="asgConfig.simcom(\'/bload '+url+'\')" title="load in metabrowser">&#9724;</a>&nbsp;<a title="save locally" onclick="asgConfig.submitLink(\''+url+'\',\''+title_+'\');">&#9670;</a></p>');
         }
     },
 
