@@ -11,6 +11,10 @@
 var asgConfig = {
     initialized: false,
 
+    submitLink: function(url, title){
+        $.post('links/submit_link.php', { url: url, title: title });
+    },
+
     simcom: function(msg){
         cmsg = $('#chatmsg');
         msg_temp = cmsg.val();
@@ -102,11 +106,14 @@ var asgConfig = {
             full_div.load("content/output.php?oid="+fun+"&always=true", function (){
                 d = this.parentNode.id;
                 if(asgConfig.initialized){
-                    $.scrollTo($('#'+d), 800 );
+                    moi = $('#'+d);
+                    if(moi.css('position')!='fixed'){
+                        $.scrollTo(moi, 800 );
+                    }
                 }
             });
 
-            min_div.append('<div id=\"x_'+div+'\" class=\"x\">X</div>');
+            min_div.append('<div id=\"x_'+div+'\" class=\"x\">&#10006;</div>');
             x_div = $('#x_'+div);
             x_div.click(function (event) { 
                 var p = this.parentNode.parentNode.id; 
