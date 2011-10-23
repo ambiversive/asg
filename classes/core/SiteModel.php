@@ -107,17 +107,6 @@ class SiteModel {
         $sth->execute(array($keyword,$doc,$help,$access));
     }
 
-    function getJavascriptDocId(){
-        global $config;
-        $table = $config["tables"]["options_table"];
-        $dbh = $this->dbh;
-        $q = "SELECT javascript_doc_id FROM $table WHERE id='1'";
-        $sth = $dbh->prepare($q);
-        $sth->execute(array());
-        $row = $sth->fetch();
-        return $row['javascript_doc_id'];
-    }
-
     function getCommands($access){
         global $config;
         $table = $config['tables']['commands_table'];
@@ -343,13 +332,33 @@ class SiteModel {
     }
 
     function getDocuments(){
-        $this->initDocuments();
-        return $this->documents;
+        global $config;
+        $dbh = $this->dbh;
+        $documents_table = $config['tables']['documents_table'];
+        $q = "SELECT id FROM $documents_table ORDER BY id";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array());
+        while($row = $sth->fetch()){
+            $returnMe[] = new Document($row['id']);
+        }
+       
+        return $returnMe;
     }
 
     function getRevisions(){
-        return $this->revisions;
-    } 
+        global $config;
+        $dbh = $this->dbh;
+        $revisions_table = $config['tables']['document_revisions_table'];
+        $q = "SELECT id FROM $revisions_table ORDER BY id";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array());
+        while($row = $sth->fetch()){
+            $returnMe[] = new DocumentRevision($row['id']);
+        }
+        
+        return $returnMe;
+    }
+ 
 
     function getChats(){
         return $this->chats;
