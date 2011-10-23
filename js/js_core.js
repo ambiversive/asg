@@ -16,7 +16,7 @@
            chatmsg = $('#chatmsg');
            chatmsg.focus();
            chatmsg.keyup(function(event) {
-               asgConfig.initialized = true;//if we be typing, we be initialized
+               asgConfig.initialized = true;
                if(event.keyCode == 13){ 
                    msg = chatmsg.val();
                    index = msg.indexOf('/');
