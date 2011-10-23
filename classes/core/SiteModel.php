@@ -25,6 +25,21 @@ class SiteModel {
         $sth->execute(array());
     }
 
+    function getFeeds(){
+        global $config;
+        $table = $config['tables']['rss_feeds_table'];
+        $dbh = $this->dbh;
+        $q = "SELECT id FROM $table";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array());
+        while($row = $sth->fetch()){
+            $returnMe[] = new Feed($row['id']);
+        }
+      
+        return $returnMe;
+
+    }
+
     function getItemTypes(){
 
         $dbh = $this->dbh;

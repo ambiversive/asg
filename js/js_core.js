@@ -2,14 +2,13 @@
         $(document).ready(runScript);
     
         function runScript(){
-           
            var aspects = asgConfig.getAspects();
            asgPoller.lpStart(1);
            asgPoller.apStart();
            asgConfig.loadCssRules();
            for ( var asp in aspects ) {
-                var on = aspects[asp].on;
-                if(on == '1'){
+               var on = aspects[asp].on;
+               if(on == '1'){
                    asgConfig.renderAspect(aspects[asp]); 
                }
            }
@@ -17,6 +16,7 @@
            chatmsg = $('#chatmsg');
            chatmsg.focus();
            chatmsg.keyup(function(event) {
+               asgConfig.initialized = true;//if we be typing, we be initialized
                if(event.keyCode == 13){ 
                    msg = chatmsg.val();
                    index = msg.indexOf('/');
@@ -47,4 +47,5 @@
              }
  
            });
+           
         }

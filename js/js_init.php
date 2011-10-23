@@ -9,6 +9,7 @@
 ?>
 
 var asgConfig = {
+    initialized: false,
 
     simcom: function(msg){
         cmsg = $('#chatmsg');
@@ -100,7 +101,9 @@ var asgConfig = {
             var full_div = $('#'+div+'_full');
             full_div.load("content/output.php?oid="+fun+"&always=true", function (){
                 d = this.parentNode.id;
-                //$.scrollTo($('#'+d), 800 );
+                if(asgConfig.initialized){
+                    $.scrollTo($('#'+d), 800 );
+                }
             });
 
             min_div.append('<div id=\"x_'+div+'\" class=\"x\">X</div>');
