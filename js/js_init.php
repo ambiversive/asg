@@ -43,6 +43,9 @@ var asgConfig = {
     renderAspectByCmd: function(cmd){
         var aspects = asgConfig.getAspects();
         if(aspects.hasOwnProperty(cmd)){
+            div_name = aspects[cmd].div;
+            div = $('#'+div_name);
+            if(div.is(':visible')){ asgConfig.removeAspectByCmd(cmd); }
             asgConfig.renderAspect(aspects[cmd]);
         }
     },

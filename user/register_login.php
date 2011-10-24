@@ -1,6 +1,8 @@
 <?php
 include('../top.php');
 
+$baseUrl = $config['urls']['baseUrl'];
+
 if($_POST["login_user"] && $_POST["login_password"]){
     $user = $_POST["login_user"];
     $pass = $_POST["login_password"];
@@ -18,10 +20,13 @@ if($_POST["login_user"] && $_POST["login_password"]){
             $current_doc = $_SESSION['current_document'];
             $chat = $myModel->getMainChat();
             $chat->submit_emote($current_user, $entry_msg);
-            print "<script>window.location=\"../index.php?id=$current_doc\"</script>";
+            header("Location: $baseUrl");
+
+       }else{
+           header("Location: $baseUrl");
        }
 
    }else{
-       print "No user found!";
+       header("Location: $baseUrl");
    }
 }

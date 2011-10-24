@@ -29,9 +29,9 @@
         $newID = Document::newDocument($subTitle, $template_content, $author, $ipageID, $hiddenOrNot, $eval);
 		                
         chatline("creates document <a onclick=\"asgConfig.simcom('/go $newID')\">$subTitle</a>.");
-        $user->offPreference('show_idoc');
+        $user->zeroAspectPreferences();
         $user->onPreference('show_edit');
-        print "<script>window.location=\"../index.php?id=$newID\"</script>";
+        print $newID;
 	
     }else{
 	print "Error. You probably didn't specify a title!";
