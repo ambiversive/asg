@@ -92,7 +92,7 @@ CREATE TABLE `aspect_preferences` (
 
 LOCK TABLES `aspect_preferences` WRITE;
 /*!40000 ALTER TABLE `aspect_preferences` DISABLE KEYS */;
-INSERT INTO `aspect_preferences` VALUES (1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(2,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO `aspect_preferences` VALUES (1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0),(2,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `aspect_preferences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,10 +135,6 @@ CREATE TABLE `aspect_sets` (
   `show_addcom` int(11) NOT NULL,
   `show_siteopts` int(11) NOT NULL,
   `show_newbie` int(11) NOT NULL,
-  `show_setbotstate` int(11) NOT NULL,
-  `show_types` int(11) NOT NULL,
-  `show_flare` int(11) NOT NULL,
-  `show_dice` int(11) NOT NULL,
   `show_submitlink` int(11) NOT NULL,
   `show_meta` int(11) NOT NULL,
   `show_rss` int(11) NOT NULL,
@@ -153,7 +149,7 @@ CREATE TABLE `aspect_sets` (
 
 LOCK TABLES `aspect_sets` WRITE;
 /*!40000 ALTER TABLE `aspect_sets` DISABLE KEYS */;
-INSERT INTO `aspect_sets` VALUES (1,'null',4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(2,'chat',4,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(3,'content',4,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0),(6,'news',4,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0);
+INSERT INTO `aspect_sets` VALUES (1,'null',4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(2,'chat',4,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(3,'content',4,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0),(6,'news',4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0);
 /*!40000 ALTER TABLE `aspect_sets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -561,7 +557,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','$1$7DOK235R$aWOnuIkx3fu7kT0Fbxf/L.','admin',0,'null@null.com',429,100,'2011-10-24 04:07:42','Canada/Newfoundland'),(44,'cortana','$1$fbO8RNsl$fezlE7yrXCpv0PZvXmEJA0','Cortana',0,'cort@cort.com',429,100,'2011-02-10 14:46:11','Canada/Newfoundland');
+INSERT INTO `users` VALUES (1,'admin','$1$7DOK235R$aWOnuIkx3fu7kT0Fbxf/L.','admin',0,'null@null.com',429,100,'2011-10-24 04:22:10','Canada/Newfoundland'),(44,'cortana','$1$fbO8RNsl$fezlE7yrXCpv0PZvXmEJA0','Cortana',0,'cort@cort.com',429,100,'2011-02-10 14:46:11','Canada/Newfoundland');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -574,4 +570,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-10-24  4:08:00
+-- Dump completed on 2011-10-24  4:22:35
