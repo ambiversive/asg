@@ -1,10 +1,23 @@
 <?php
 
+/*
+    File: config.php
+    Author: ambiversive
+    Description: 
+
+    This file stores the config array, which
+    is used to configure Antischismogenesis.
+    It specifies database variables, a baseUrl,
+    and table names.  
+*/
+
+ini_set(’session.gc_maxlifetime’, 30*60);
+
 $config = array(
     "db" => array(
-            "dbname" => "improvis_simp",  
-            "username" => "root",  
-            "password" => "sql1682m",  
+            "dbname" => "",  
+            "username" => "",  
+            "password" => "",  
             "host" => "localhost"  
         ),
     "urls" => array(  
@@ -26,9 +39,6 @@ $config = array(
         "access_levels_table" => "access_levels",
         "options_table" => "options",
         "css_rules_table" => "css_rules",
-        "item_types_table" => "item_types",
-        "item_instances_table" => "item_instances",
-        "item_actions_table" => "item_actions",
         "links_table" => "links",
         "link_votes_table" => "link_votes",
         "rss_feeds_table" => "rss_feeds"

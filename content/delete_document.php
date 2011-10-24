@@ -6,7 +6,9 @@
 
     $doc = new Document($rPageID);
     $title = $doc->getTitle();
+    $parent_id = $doc->get('parent_id');
     $doc->delete();
     $user->offPreference('show_delete');
     chatline("deletes document $title.");
+    print $parent_id;
 
