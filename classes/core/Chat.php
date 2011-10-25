@@ -73,6 +73,8 @@ class Chat extends DbTable {
 
     function submit($user, $chat_message, $is_emote){
         global $config;
+        global $options;
+        $min = $options['minimum_chat_interval'];
         $bots_table = $config['tables']['bots_table'];
         $doc_table = $config['tables']['documents_table'];
         $msgs_table = $this->get('table');
@@ -80,17 +82,23 @@ class Chat extends DbTable {
         $table = $this->_table;       
         $user_id = $user->getId();
         $access = $user->getAccess();
+        $last_msg = $user->getTimeOfLastMessage();
+        $interval = time() - $last_msg;
+        $spammer = $interval < $min;
 
-        if($access == 4 ){ $chat_message = htmlentities($chat_message); }
+        if(!$spammer){
+
+            if($access == 4 ){ $chat_message = htmlentities($chat_message); }
  
-        $sql = "INSERT INTO $msgs_table VALUES ('',?,?, NOW(), ?);";
-        $sth = $dbh->prepare($sql);
-        $result = $sth->execute(array($user_id, $chat_message, $is_emote));
-        $bots = Bot::getBots(1,$user_id);//first argument is for active bots, second is for focus user
-        if(is_array($bots)){
-         foreach($bots as $bot){
+            $sql = "INSERT INTO $msgs_table VALUES ('',?,?, NOW(), ?);";
+            $sth = $dbh->prepare($sql);
+            $result = $sth->execute(array($user_id, $chat_message, $is_emote));
+            $bots = Bot::getBots(1,$user_id);//first argument is for active bots, second is for focus user
+            if(is_array($bots)){
+             foreach($bots as $bot){
                 $botuser = $bot->getUser();
                 $override = $bot->get('override');
+
                 if($override > 0){ 
 
                     $od = new Document($override);
@@ -109,8 +117,9 @@ class Chat extends DbTable {
                     }
                 }
 
-        }
+            }
        }
+     }
     }
 
     function submit_emote($user,$chat_message){
@@ -122,6 +131,7 @@ class Chat extends DbTable {
     }
 
     function clear(){
+
 
         $table = $this->get('table');
         $dbh = $this->_dbh;

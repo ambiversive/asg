@@ -1,7 +1,5 @@
 <?php
 
-include_once("DbTable.php");
-
 class User extends DbTable {
     protected $_table;
 
@@ -117,6 +115,19 @@ class User extends DbTable {
             $this->setAspectPreference($name, $value);
             $_SESSION[$name] = $value;
         }
+    }
+
+    function getTimeOfLastMessage(){
+        $dbh = $this->_dbh;
+        $id = $this->_id;
+        global $config;
+        $chat_messages_table = $config['tables']['chat_messages_table'];
+        $q = "SELECT UNIX_TIMESTAMP(timestamp) FROM $chat_messages_table WHERE user_id = ? ORDER BY id DESC LIMIT 1";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array($id));
+        $row = $sth->fetch();
+        $stamp = $row['UNIX_TIMESTAMP(timestamp)'];
+        return $stamp;
     }
 
     function getCssRules(){
