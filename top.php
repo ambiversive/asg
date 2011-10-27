@@ -38,7 +38,7 @@
         $id = null;
     }
  
-    if($id){
+    if($id && $myModel->documentExists($id)){
         $current_doc = new Document($id);
         $num_children = $current_doc->numChildren();
         $is_null = $current_doc->isNullContent();
