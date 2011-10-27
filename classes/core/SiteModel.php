@@ -17,6 +17,16 @@ class SiteModel {
         $this->initAspects();
         $this->initUsers();
     }
+    
+    function documentExists($id){
+        global $config;
+        $dbh = $this->dbh;
+        $documents_table = $config['tables']['documents_table'];
+        $q = "SELECT id FROM $documents_table WHERE id=?";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array($id));
+        if($sth->rowCount() == 1){ return true; }else{ return false; }
+    }
 
     function updateArbitrary($table, $column, $id, $value){
         $dbh = $this->dbh;
