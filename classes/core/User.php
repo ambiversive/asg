@@ -202,6 +202,10 @@ class User extends DbTable {
         global $config;
         $uprefs = $config['tables']['user_preferences_table'];
 
+        if($this->get('access') == 4){ 
+            $value = strip_tags($value);
+        }
+
         $q = "UPDATE $uprefs SET $prefname=? WHERE user_id=?";
         $r = $dbh->prepare($q);
         $r->execute(array($value,$uid));
