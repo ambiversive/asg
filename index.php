@@ -26,26 +26,6 @@
     <script type="text/javascript" src="apps/ace/mode-javascript.js" charset="utf-8"></script>
     <script type="text/javascript" src="apps/ace/mode-php.js" charset="utf-8"></script>
 
-
-    <script type="text/javascript">
-        <?php
-           
-             if($_GET['newbie']==1){
-
-                $u = $_SESSION['newbie_username'];
-                $p = $_SESSION['newbie_password'];
-                print "$(document).ready(function(){";
-                print "$('#login_password').attr('value','$p');";
-                print "$('#login_username').attr('value','$u');";
-
-                print "$('#login_form').submit();";
-                print "});";
-
-             }
-
-        ?>
-
-    </script>
 </head>
 
 <body>
@@ -54,26 +34,6 @@
     if($_SESSION['session_loggedIn']!=$uniqueID){
         $front = new Document($front);
         $front->outputAndEval();
-
-?>
-
-</div><h2>Login</h2><div id="login">
-
-<?php
-   
-        include('user/login.php');
-        
-?>
-
-</div><h2>Register new user</h2><div id="new_user">
-
-<?
-
-        include("user/new_user.php");
-
-?>
-</div>
-<?
 
     }else{ 
 ?>

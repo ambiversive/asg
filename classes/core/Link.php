@@ -5,7 +5,8 @@ class Link extends DbTable {
 
     function __construct($id){
         global $config;
-        $this->$_table = $config['tables']['links_table'];
+        $this->_table = $config['tables']['links_table'];
+        parent::__construct($id);
     }
 
     function upvote($user_id){

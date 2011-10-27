@@ -133,10 +133,10 @@ class Aspect extends DbTable {
         $sth = $dbh->prepare($q);
         $sth->execute(array($div,$title,$command,$func,$pref_column,$session_var,$access,$ajaxify,$desc));
 	
-        $q = "ALTER TABLE $aprefs ADD $pref_column INT NOT NULL";
+        $q = "ALTER TABLE $aprefs ADD $pref_column TINYINT NOT NULL";
         $sth = $dbh->exec($q);      
         
-        $q = "ALTER TABLE $asets ADD $pref_column INT NOT NULL";
+        $q = "ALTER TABLE $asets ADD $pref_column TINYINT NOT NULL";
         $sth = $dbh->exec($q);
     }
   

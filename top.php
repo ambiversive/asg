@@ -20,11 +20,10 @@
     }
 
     $id = $_GET['id'];
-    $link_id = $_GET['link_id'];
     $cdoc = $_SESSION['current_document'];
 
     if(isset($id) && $id!=0){
-        if($id != $cdoc){//currently have no idea why setAspectPreference isn't setting the sesh var
+        if($id != $cdoc){
             $_SESSION['current_document'] = $id;
             $user->setAspectPreference('show_ls',1);
             $user->setAspectPreference('show_content',1);

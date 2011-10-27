@@ -55,11 +55,10 @@ if($captcha->isKeyRight($_POST['key']) || $loggedIn){
          if(preg_match('/^\w{5,}$/', $newUsername)){
 
            if(!empty($newPassword)){
-            User::newUser($newUsername, $newPassword, $newFullname, $newEmail, $newCss, $newAccessLevel, $newTimezone);
-            if($loggedIn){ chatline("creates user $newUsername."); }
-            $_SESSION['newbie_username'] = $newUsername;
-            $_SESSION['newbie_password'] = $newPassword;
-            print "<script>window.location='../index.php?newbie=1'</script>";
+            $user = User::newUser($newUsername, $newPassword, $newFullname, $newEmail, $newCss, $newAccessLevel, $newTimezone);
+            $user->registerLogin();
+            $chat = $myModel->getMainChat();
+            $chat->submit_emote($user, "joins.");
            }else{
              print "<p>Invalid password. Please <a href=\"../index.php\">go back</a>.";
            }
