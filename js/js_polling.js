@@ -18,6 +18,7 @@ var asgPoller = {
     },
 
     lpStart: function(last_msg) {
+        $.post('user/update_lastactive.php');
         $.ajax({
             type: "POST",
             url: "chat/chat_poll.php",

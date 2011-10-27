@@ -14,7 +14,8 @@ var asgRss = {
     success: function(response, fid){
         whereTo = $('#feed_'+fid);
         whereTo.html('');
-        $.scrollTo(whereTo, 800);
+        $.scrollTo($('#rss'), 800);
+        $('#rss_full').scrollTo(whereTo, 800);
         for(link in response){
             title = response[link].title;
             title_ = asgRss.addslashes(title);

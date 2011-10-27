@@ -29,7 +29,7 @@ class SiteModel {
         global $config;
         $table = $config['tables']['rss_feeds_table'];
         $dbh = $this->dbh;
-        $q = "SELECT id FROM $table";
+        $q = "SELECT id * FROM $table";
         $sth = $dbh->prepare($q);
         $sth->execute(array());
         while($row = $sth->fetch()){
@@ -440,4 +440,19 @@ class SiteModel {
         }
     }
 
+    function getLinks(){
+        global $config;
+        $dbh = $this->dbh;
+        $links_table = $config['tables']['links_table'];
+        $q = "SELECT id FROM $links_table ORDER BY id";
+        $sth = $dbh->query($q);
+        while($row = $sth->fetch()){
+            $lid = $row['id'];
+            $returnMe[] = new Link($lid);
+        }
+        return $returnMe;
+    }
+
 }
+
+

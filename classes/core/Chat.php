@@ -75,6 +75,10 @@ class Chat extends DbTable {
         global $config;
         global $options;
         $min = $options['minimum_chat_interval'];
+        $max = $options['maximum_message_size'];
+        if($max != 0){
+            $chat_message = substr($chat_message,0,$max);
+        }
         $bots_table = $config['tables']['bots_table'];
         $doc_table = $config['tables']['documents_table'];
         $msgs_table = $this->get('table');
