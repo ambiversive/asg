@@ -31,9 +31,8 @@
 
 <?php 
     if($_SESSION['session_loggedIn']!=$uniqueID){
-        $front = new Document($front);
-        $front->outputAndEval();
-
+        $myPublisher = new Publisher($myModel);
+        $myPublisher->render();
     }else{ 
 ?>
 

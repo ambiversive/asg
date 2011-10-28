@@ -341,11 +341,11 @@ class SiteModel {
         return $this->users;
     }
 
-    function getDocuments(){
+    function getDocuments($access = 0){
         global $config;
         $dbh = $this->dbh;
         $documents_table = $config['tables']['documents_table'];
-        $q = "SELECT id FROM $documents_table ORDER BY id";
+        $q = "SELECT id FROM $documents_table WHERE access = '$access' ORDER BY id";
         $sth = $dbh->prepare($q);
         $sth->execute(array());
         while($row = $sth->fetch()){

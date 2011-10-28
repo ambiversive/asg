@@ -170,6 +170,7 @@ var asgConfig = {
     },
     
     loadAspectSet: function(aspect_set_id){
+        asgConfig.initialized = false; //so we don't scroll to each aspect we load
         asgConfig.zeroAspects();
         $.get('aspects/load_aspect_set.php', { aspect_set_id: aspect_set_id });
 <?php
