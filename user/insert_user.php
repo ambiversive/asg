@@ -2,8 +2,7 @@
 
 include("../top.php");
 
-$soptions = $myModel->getSiteOptions();
-
+$baseUrl = $config['urls']['baseUrl'];
 $newUsername = $_POST['newUsername'];
 $newPassword = $_POST['newPassword'];
 $newEmail = $_POST['newEmail'];
@@ -17,22 +16,22 @@ $newEmail = $_POST['newEmail'];
     if(isset($_POST['newCss'])){
         $newCss = $_POST['newCss'];
     }else{
-        $newCss = $soptions['default_style'];
+        $newCss = $options['default_style'];
     }
 
     if(isset($_POST['newAccessLevel'])){
         $newAccessLevel = $_POST['newAccessLevel'];
     }else{
-        $newAccessLevel = 4;
+        $newAccessLevel = $options['new_user_access'];
     }
 
     if(isset($_POST['newTimezone'])){
         $newTimezone = $_POST['newTimezone'];
     }else{
-        $newTimezone = "Canada\Newfoundland"; 
+        $newTimezone = $options['new_user_timezone']; 
     }
 
-    $loggedIn = $_SESSION['session_loggedIn']==$uniqueID;
+    $loggedIn = ($_SESSION['session_loggedIn']==$uniqueID);
 
     $coptions['sessionName'] = 'vihash';
     $coptions['fontPath'] = '';
@@ -46,19 +45,21 @@ $newEmail = $_POST['newEmail'];
     $coptions['secretKey'] = 'mySecRetkEy';
 
     $captcha = new Captcha($coptions);
-
-
+    
+    $min_name_length = $options['minimum_name_length'];
+    $join_msg = $options['join_msg'];
 
 if($captcha->isKeyRight($_POST['key']) || $loggedIn){
 
        if(!$myModel->userExists($newUsername)){
-         if(preg_match('/^\w{5,}$/', $newUsername)){
+         if(preg_match('/^\w{'.$min_name_length.',}$/', $newUsername)){
 
            if(!empty($newPassword)){
             $user = User::newUser($newUsername, $newPassword, $newFullname, $newEmail, $newCss, $newAccessLevel, $newTimezone);
             $user->registerLogin();
             $chat = $myModel->getMainChat();
-            $chat->submit_emote($user, "joins.");
+            $chat->submit_emote($user, $join_msg);
+            header("Location: $baseUrl");
            }else{
              print "<p>Invalid password. Please <a href=\"../index.php\">go back</a>.";
            }

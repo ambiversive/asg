@@ -25,7 +25,6 @@
     <script type="text/javascript" src="apps/ace/mode-html.js" charset="utf-8"></script>
     <script type="text/javascript" src="apps/ace/mode-javascript.js" charset="utf-8"></script>
     <script type="text/javascript" src="apps/ace/mode-php.js" charset="utf-8"></script>
-
 </head>
 
 <body>

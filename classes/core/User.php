@@ -92,6 +92,7 @@ class User extends DbTable {
 
     function registerLogin(){
         global $uniqueID;
+        $this->set('last_ip',$_SERVER['REMOTE_ADDR']);
         $_SESSION['session_userid'] = $this->get('id');
         $_SESSION['session_username'] = $this->get('username');
         $_SESSION['session_fullName'] = $this->get('full_name');
@@ -109,11 +110,11 @@ class User extends DbTable {
     function loadAspectSet($set_id){
         $aspset = new AspectSet($set_id);
         $prefs = $aspset->getPreferences();
-
-        foreach($prefs as $name => $value){
-            //print "<p>$name - $value</p>";
-            $this->setAspectPreference($name, $value);
-            $_SESSION[$name] = $value;
+        if($this->get('access_level') <= $aspset->get('access')){
+            foreach($prefs as $name => $value){
+                $this->setAspectPreference($name, $value);
+                $_SESSION[$name] = $value;
+            }
         }
     }
 
@@ -307,6 +308,7 @@ class User extends DbTable {
         $users_table = $config['tables']['users_table'];
         $uprefs = $config['tables']['user_preferences_table'];
         $aprefs = $config['tables']['aspect_preferences_table'];
+        $cmsgs = $config['tables']['chat_messages_table'];
         $user_id = $this->_id;
         $dbh = $this->_dbh;
 
@@ -321,10 +323,15 @@ class User extends DbTable {
         $q = "DELETE FROM $aprefs WHERE user_id=?";
         $sth = $dbh->prepare($q);
         $sth->execute(array($user_id));
+
+        $q = "DELETE FROM $cmsgs WHERE user_id=?";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array($user_id)); 
     }
 
     static function newUser($newUsername, $newPassword, $newFullname, $newEmail, $newCss, $newAccessLevel, $newTimezone){
- 	
+        $last_ip = $_SERVER['REMOTE_ADDR'];
+        print $last_ip;	
         $cryptPassword = crypt($newPassword);
         $dbh = db_connect();        
         global $config;
@@ -332,9 +339,9 @@ class User extends DbTable {
         $uprefs = $config['tables']['user_preferences_table'];
         $aprefs = $config['tables']['aspect_preferences_table'];
 
-        $query = "INSERT INTO users VALUES ('',?,?,?,?,?,?,'100',NOW(),?)";
+        $query = "INSERT INTO users VALUES ('',?,?,?,?,?,?,'100',NOW(),?,?)";
         $sth = $dbh->prepare($query);
-        $result = $sth->execute(array($newUsername, $cryptPassword, $newFullname, $newAccessLevel, $newEmail, $newCss, $newTimezone));
+        $result = $sth->execute(array($newUsername, $cryptPassword, $newFullname, $newAccessLevel, $newEmail, $newCss, $newTimezone,$last_ip));
                            
         $uid = $dbh->lastInsertId();
 
@@ -352,12 +359,17 @@ class User extends DbTable {
         $query3 = "UPDATE $aprefs SET user_id='$uid' WHERE id='$pref_id'";
         $r3 = $dbh->exec($query3);
 
+        $myModel = new SiteModel($dbh);
+        $options = $myModel->getSiteOptions();
+        $fpid = $options['front_page_id'];
+        $new_entry = $options['new_user_entry'];
+        $new_exit = $options['new_user_exit'];
+        $new_aspect_set = $options['new_user_aspect_set'];
         $user = new User($uid);
-        $user->setAspectPreference('show_chat','1');
-        $user->setAspectPreference('show_newbie','1');
-        $user->setAspectPreference('show_nav','1');
-        $user->setUserPreference('exit_msg','leaves.');
-        $user->setUserPreference('entry_msg','arrives.');
+        $user->loadAspectSet($new_aspect_set);
+        $user->setUserPreference('exit_msg',$new_exit);
+        $user->setUserPreference('entry_msg',$new_entry);
+        $user->setUserPreference('current_document',$fpid);
         return $user;
     }
 

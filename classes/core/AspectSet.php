@@ -38,6 +38,32 @@ class AspectSet extends DbTable {
         return $preferences;
     }
 
+    function getCmds(){
+        $dbh = $this->_dbh;
+        $table = $this->_table;
+        $id = $this->_id;
+
+        $q = "SELECT * FROM $table WHERE id = ?";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array($id));
+        $row = $sth->fetch();
+ 
+        foreach($row as $key => $val){
+            if(!is_int($key)){
+                if($key != 'id' && $key != 'access' && $key != 'name'){
+                    if($val == 1){
+                        $q = "SELECT command FROM aspects WHERE pref_column = '$key'";
+                        $sth = $dbh->prepare($q);
+                        $sth->execute(array());
+                        $zrow = $sth->fetch();
+                        $cmds[] = $zrow['command'];
+                    }
+                }
+            }
+        }
+        return $cmds;
+    }
+
     static function newAspectSet($name, $access){
         $dbh = db_connect();
         global $config;

@@ -1,10 +1,6 @@
 <?php
     include("../top.php");
-    $uid = $_SESSION['session_userid'];
-    $access = $_SESSION['session_accessLevel'];
-
-    $css_rules = $user->getCssRules(); 
-    $aspects = $myModel->getAspects($access);
+    $aspect_sets = $myModel->getAspectSets($access);
     $commands = $myModel->getCommands($access);
 ?>
 
@@ -171,6 +167,29 @@ var asgConfig = {
     }
 
  ?>
+    },
+    
+    loadAspectSet: function(aspect_set_id){
+        asgConfig.zeroAspects();
+        $.get('aspects/load_aspect_set.php', { aspect_set_id: aspect_set_id });
+<?php
+        foreach($aspect_sets as $set){
+            $set_id = $set->get('id');
+            $set_name = $set->get('name');
+            $cmds = $set->getCmds();
+            print "if(aspect_set_id == $set_id){";
+            foreach($cmds as $cmd){
+                print "asgConfig.renderAspectByCmd('$cmd');";
+            }
+            print "}";
+        }
+?>
+    },
+
+    zeroAspects: function() {
+        $('#all_aspects').remove();
+        $('body').append('<div id="all_aspects"></div>');
+        
     }
 
 };
