@@ -331,7 +331,6 @@ class User extends DbTable {
 
     static function newUser($newUsername, $newPassword, $newFullname, $newEmail, $newCss, $newAccessLevel, $newTimezone){
         $last_ip = $_SERVER['REMOTE_ADDR'];
-        print $last_ip;	
         $cryptPassword = crypt($newPassword);
         $dbh = db_connect();        
         global $config;
