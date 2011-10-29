@@ -179,8 +179,10 @@ var asgConfig = {
             $set_name = $set->get('name');
             $cmds = $set->getCmds();
             print "if(aspect_set_id == $set_id){";
-            foreach($cmds as $cmd){
-                print "asgConfig.renderAspectByCmd('$cmd');";
+            if(is_array($cmds)){
+                foreach($cmds as $cmd){
+                    print "asgConfig.renderAspectByCmd('$cmd');";
+                }
             }
             print "}";
         }

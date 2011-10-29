@@ -30,7 +30,6 @@
             chatline("modifies options for <a onclick=\"asgConfig.simcom('/go $pageID')\">$tit</a>.");
             $user->offPreference('show_options');
 
-            print "<script type=\"text/javascript\">window.location='../index.php?id=$pageID'</script>";	
 
  }else{
    print "<p>Error!</p>";

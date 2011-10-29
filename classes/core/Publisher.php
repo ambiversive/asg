@@ -17,12 +17,27 @@ class Publisher {
     }
 
     function render(){
+        $this->renderMenu();
         foreach($this->public_docs as $doc){
             $doc_title = $doc->get('title');
             $doc_id = $doc->get('id');
-            print "<div id=\"$doc_id\"></div>";
-            $doc->outputAndEval();
+            $doc_content = $doc->returnOutputAndEval();
+            print "<h2 id=\"p$doc_id\">$doc_title</h2>";
+            print "<div id=\"pubdoc_content_$doc_id\">$doc_content</div>";
         }
+    }
+
+    function renderMenu(){
+        print "<div id=\"pubmenu\" style=\"position: fixed; top: 0; left: 80%; width: 20%; background: #333; color: white; float: right;\">";
+        print "<ul>";
+        foreach($this->public_docs as $doc){
+            $doc_title = $doc->get('title');
+            $doc_id = $doc->get('id');
+            print "<li><a href=\"#p$doc_id\">$doc_title</a></li>";
+        }
+        print "</ul>";
+        print "</div>";
+
     }
 
 } 

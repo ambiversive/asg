@@ -15,9 +15,9 @@ ini_set(’session.gc_maxlifetime’, 30*60);
 
 $config = array(
     "db" => array(
-            "dbname" => "",  
-            "username" => "",  
-            "password" => "",  
+            "dbname" => "improvis_simp",  
+            "username" => "root",  
+            "password" => "sql1682m",  
             "host" => "localhost"  
         ),
     "urls" => array(  
