@@ -116,7 +116,7 @@ class Bot extends DbTable {
         global $config;
         $bots_table = $config['tables']['bots_table'];
         $dbh = db_connect();
-        $q = "INSERT INTO $bots_table VALUES ('',?,'1',?,?,?)";
+        $q = "INSERT INTO $bots_table VALUES ('',?,'1',?,?,?,'0')";
         $sth = $dbh->prepare($q);
         $sth->execute(array($bot_content,$focus_user,$bot_state,$bot_user));
     }

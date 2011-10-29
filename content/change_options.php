@@ -28,8 +28,6 @@
             $tit = $doc->getTitle();
 
             chatline("modifies options for <a onclick=\"asgConfig.simcom('/go $pageID')\">$tit</a>.");
-            $user->offPreference('show_options');
-
 
  }else{
    print "<p>Error!</p>";

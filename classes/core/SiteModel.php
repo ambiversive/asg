@@ -17,7 +17,17 @@ class SiteModel {
         $this->initAspects();
         $this->initUsers();
     }
-    
+
+    // if a user has the aspect on, set it to refresh
+    function refreshAspectIfNeccessary($aspect_preference){
+        global $config;
+        $aprefs = $config['tables']['aspect_preferences_table'];
+        $q = "UPDATE $aprefs SET $aspect_preference = '2' WHERE $aspect_preference = '1'";
+        $dbh = $this->dbh;
+        $sth = $dbh->prepare($q);
+        $sth->execute(array());        
+    } 
+   
     function documentExists($id){
         global $config;
         $dbh = $this->dbh;

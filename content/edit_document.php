@@ -22,6 +22,4 @@
         $doc->setContent($iContent);
         DocumentRevision::newDocumentRevision($iPageID, $userid, $iContent);
         chatline("modifies the content of <a onclick=\"asgConfig.simcom('/go $iPageID')\">$newSubTitle</a>.");
-        $user->offPreference('show_edit');
-        print "<script>window.location='../index.php?id=$iPageID'</script>";
     }

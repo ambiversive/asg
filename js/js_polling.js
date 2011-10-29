@@ -6,11 +6,12 @@ var asgPoller = {
         msg = response.msg;
         stamp = response.stamp;
         is_emote = response.is_emote;
-     
-        if(is_emote==="0"){
-            $('#chat_full').append("<div class=\"msg_env\"><div class=\"timestamp\">"+stamp+"</div><div class=\"username\">"+user+"&gt;&nbsp;</div><div class=\"msg\">"+msg+"</div></div>");
-        }else if(is_emote==="1"){
-            $('#chat_full').append("<div class=\"msg_env\"><div class=\"timestamp\">"+stamp+"</div><div class=\"username\">"+user+"&nbsp;</div><div class=\"msg\">"+msg+"</div></div>");
+        if($('#chat').length>0){    
+            if(is_emote==="0"){
+                $('#chat_full').append("<div class=\"msg_env\"><div class=\"timestamp\">"+stamp+"</div><div class=\"username\">"+user+"&gt;&nbsp;</div><div class=\"msg\">"+msg+"</div></div>");
+            }else if(is_emote==="1"){
+                $('#chat_full').append("<div class=\"msg_env\"><div class=\"timestamp\">"+stamp+"</div><div class=\"username\">"+user+"&nbsp;</div><div class=\"msg\">"+msg+"</div></div>");
+            }
         }
 
         document.getElementById("chat_full").scrollTop = document.getElementById("chat_full").scrollHeight;
@@ -34,17 +35,13 @@ var asgPoller = {
     },
 
     apStart: function() {
- 
         $.ajax({
             type: "POST",
             url: "aspects/aspect_poll.php",
             dataType: "json",
             data: { uid: asgConfig.getUserId() },
             timeout: 25000, // in milliseconds
-            success: asgPoller.apOnComplete,
-            error: function(request, status, err) {
-                asgPoller.apStart();
-            }
+            success: asgPoller.apOnComplete
         });
 
     },
@@ -54,6 +51,6 @@ var asgPoller = {
            asgConfig.renderAspect(response[asp]);
            asgConfig.onPreference(response[asp].pref);
         }
-        //asgConfig.renderAspect(response[0]);
+        asgPoller.apStart();
     }
 }

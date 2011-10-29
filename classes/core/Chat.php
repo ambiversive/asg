@@ -74,6 +74,11 @@ class Chat extends DbTable {
     function submit($user, $chat_message, $is_emote){
         global $config;
         global $options;
+        $chat_message = str_replace('?','&#63;',$chat_message);
+        $chat_message = str_replace('@','&#64;',$chat_message);
+        $chat_message = str_replace('$','&#36;',$chat_message);
+        $chat_message = str_replace('\'','&#8217;',$chat_message);
+
         $min = $options['minimum_chat_interval'];
         $max = $options['maximum_message_size'];
         if($max != 0){
@@ -90,9 +95,9 @@ class Chat extends DbTable {
         $interval = time() - $last_msg;
         $spammer = $interval < $min;
 
-        if(!$spammer){
+        if(!$spammer || $access < 4){
 
-            if($access == 4 ){ $chat_message = htmlentities($chat_message); }
+            if($access == 4 ){ $chat_message = strip_tags($chat_message); }
  
             $sql = "INSERT INTO $msgs_table VALUES ('',?,?, NOW(), ?);";
             $sth = $dbh->prepare($sql);

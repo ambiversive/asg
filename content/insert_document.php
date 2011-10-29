@@ -29,8 +29,6 @@
         $newID = Document::newDocument($subTitle, $template_content, $author, $ipageID, $hiddenOrNot, $eval);
 		                
         chatline("creates document <a onclick=\"asgConfig.simcom('/go $newID')\">$subTitle</a>.");
-        $user->zeroAspectPreferences();
-        $user->onPreference('show_edit');
         print $newID;
 	
     }else{

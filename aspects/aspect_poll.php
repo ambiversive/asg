@@ -1,15 +1,14 @@
 <?php
     include_once("../database/config.php");
+    include_once("../classes/core/DbTable.php");
     include_once("../database/db_connect.php");
     include_once("../classes/core/User.php");
-    include_once("../classes/core/DbTable.php");
     $aspects_table = $config['tables']['aspects_table'];
     $aspect_preferences_table = $config['tables']['aspect_preferences_table'];
 
     $dbh = db_connect();
     $uid = $_POST['uid'];
     $user = new User($uid);
-    $user->updateLastActive();
     $time = time();
     while((time()-$time) < 30){
 
