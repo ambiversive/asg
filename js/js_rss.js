@@ -20,7 +20,7 @@ var asgRss = {
             title = response[link].title;
             title_ = asgRss.addslashes(title);
             url = response[link].url;
-            whereTo.append('<p><a target="new" href="'+url+'">'+title+'</a>&nbsp;<a onclick="asgConfig.simcom(\'/bload '+url+'\')" title="load in metabrowser">&#9724;</a>&nbsp;<a title="save locally" onclick="asgConfig.submitLink(\''+url+'\',\''+title_+'\');">&#9670;</a></p>');
+            whereTo.append('<p><a target="_new" href="'+url+'">'+title+'</a>&nbsp;<a onclick="asgConfig.simcom(\'/bload '+url+'\')" title="load in metabrowser">&#9724;</a>&nbsp;<a title="save locally" onclick="$(this).hide();asgConfig.submitLink(\''+url+'\',\''+title_+'\');">&#9670;</a></p>');
         }
     },
 
