@@ -4,12 +4,14 @@ include('../top.php');
     $zoid = (int)$_GET['oid'];
     $alwaysEval = $_GET['always'];
 
+    if($myModel->documentExists($zoid)){
+        $doc = new Document($zoid);
+        $doc_access = $doc->get('access');
+        $zeval = $doc->get('eval');
+    }
+
 
     if($access <= $doc_access){
-
-        $doc = new Document($zoid);
-        $doc_access = $doc->getAccess();
-        $zeval = $doc->getEvaluate();
 
         if($alwaysEval!="true"){
 
