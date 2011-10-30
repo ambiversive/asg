@@ -1,6 +1,8 @@
 <?php
     include_once("../top.php");
 
+if($access == 0){
+
     $newAccess = $_POST['newAccess'];
     $newLocked = $_POST['newLocked'];
     $newAuthor = $_POST['newAuthor'];
@@ -8,8 +10,6 @@
     $pageID = $_POST['pageID'];
     $newEval = $_POST['newEval'];
     $newParent = $_POST['newParent'];
-    $uid = $_SESSION['session_userid'];
-    $user = new User($uid);
 
     if(isset($newAccess) && 
         isset($newLocked) && 
@@ -32,4 +32,5 @@
  }else{
    print "<p>Error!</p>";
  }           
-?>
+
+}

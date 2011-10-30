@@ -2,9 +2,8 @@
 
 include_once("../top.php");
 
-//expecting table, column, id, value
 
-if($_SESSION['session_accessLevel']==0){
+if($access==0){
     $table = $_POST['table'];
     $column = $_POST['column'];
     $row_id = $_POST['row_id'];

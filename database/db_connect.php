@@ -1,7 +1,4 @@
 <?php   
-//include_once("./classes/site_model.php");
-
-$uniqueID = "a3xxxxxxxxxxxxxxxxxxxxxxx4ght67y4rwfbhZZzsdDdd";
 
     function db_connect(){
         global $config;
@@ -19,7 +16,6 @@ $uniqueID = "a3xxxxxxxxxxxxxxxxxxxxxxx4ght67y4rwfbhZZzsdDdd";
         }
     }
 
-    //idea: setting so bots only work when adjacent to people
     function chatline($msg){
         global $myModel;
         $myChat = $myModel->getMainChat();

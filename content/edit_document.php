@@ -4,7 +4,6 @@
 
     $session_loggedIn =	$_SESSION['session_loggedIn'];
     $userid = $_SESSION['session_userid'];
-    $user = new User($userid);
 
     $newSubTitle = $_POST['newSubTitle'];
     $iContent = $_POST['iContent'];
