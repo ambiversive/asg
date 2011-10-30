@@ -435,6 +435,31 @@ LOCK TABLES `links` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `log`
+--
+
+DROP TABLE IF EXISTS `log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `msg` text COLLATE utf8_unicode_ci NOT NULL,
+  `event_type` int(11) NOT NULL,
+  `event_something` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `log`
+--
+
+LOCK TABLES `log` WRITE;
+/*!40000 ALTER TABLE `log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `options`
 --
 
@@ -563,7 +588,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','$1$7DOK235R$aWOnuIkx3fu7kT0Fbxf/L.','admin',0,'null@null.com',429,100,'2011-10-29 15:41:59','Canada/Newfoundland','127.0.0.1'),(44,'cortana','$1$fbO8RNsl$fezlE7yrXCpv0PZvXmEJA0','Cortana',4,'cort@cort.com',429,1000,'2011-02-10 14:46:11','Canada/Newfoundland','');
+INSERT INTO `users` VALUES (1,'admin','$1$7DOK235R$aWOnuIkx3fu7kT0Fbxf/L.','admin',0,'null@null.com',429,100,'2011-10-29 21:59:02','Canada/Newfoundland','127.0.0.1'),(44,'cortana','$1$fbO8RNsl$fezlE7yrXCpv0PZvXmEJA0','Cortana',4,'cort@cort.com',429,1000,'2011-02-10 14:46:11','Canada/Newfoundland','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -576,4 +601,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-10-29 15:42:00
+-- Dump completed on 2011-10-29 23:28:34
