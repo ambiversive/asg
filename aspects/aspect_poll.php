@@ -7,7 +7,7 @@
     $aspect_preferences_table = $config['tables']['aspect_preferences_table'];
 
     $dbh = db_connect();
-    $uid = $_POST['uid'];
+    $uid = (int)$_POST['uid'];
     $user = new User($uid);
     $time = time();
     while((time()-$time) < 30){

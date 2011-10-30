@@ -1,9 +1,7 @@
 <?php
     include('../top.php');
     $baseUrl = $config['urls']['baseUrl'];
-    $uid = $_SESSION['session_userid'];
-    $aspect_set_id = $_GET['aspect_set_id'];
-    $user = new User($uid);
+    $aspect_set_id = (int)$_GET['aspect_set_id'];
     $user->loadAspectSet($aspect_set_id);
     header("Location: $baseUrl");
  
