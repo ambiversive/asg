@@ -11,7 +11,7 @@ include('../top.php');
     }
 
 
-    if($access <= $doc_access){
+//    if($access <= $doc_access){
 
         if($alwaysEval!="true"){
 
@@ -24,4 +24,4 @@ include('../top.php');
         }else{
             $doc->outputAndEval();
         }
-    }
+//    }
