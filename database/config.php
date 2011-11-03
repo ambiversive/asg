@@ -13,14 +13,11 @@
 
 ini_set(’session.gc_maxlifetime’, 30*60);
 
-//yes this should be in that array I guess?
-$uniqueID = "fosefg0ghwegh02ty0923t023t3gh24h2h";
-
 $config = array(
     "db" => array(
-            "dbname" => "improvis_simp",  
-            "username" => "root",  
-            "password" => "sql1682m",  
+            "dbname" => "",  
+            "username" => "",  
+            "password" => "",  
             "host" => "localhost"  
         ),
     "urls" => array(  

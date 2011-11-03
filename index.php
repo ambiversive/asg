@@ -16,8 +16,8 @@
     <script type="text/javascript" src="apps/jquery.localscroll-1.2.7-min.js"></script>
     <script type="text/javascript" src="apps/jquery.scrollTo-min.js"></script>
     <script type="text/javascript" src="js/js_init.php"></script>
-    <script type="text/javascript" src="js/js_polling.js"></script>
-    <script type="text/javascript" src="js/js_core.js"></script>
+    <script type="text/javascript" src="js/js_polling.php"></script>
+    <script type="text/javascript" src="js/js_core.php"></script>
     <script type="text/javascript" src="js/js_rss.js"></script>
     <script type="text/javascript" src="apps/ace/ace.js" charset="utf-8"></script>
     <script type="text/javascript" src="apps/ace/theme-twilight.js" charset="utf-8"></script>
@@ -38,7 +38,6 @@
 
     <div id="command_line">
     <input id="chatmsg"> 
-    <input id="lastmsg" type="hidden">
     <div id="aspect_sets">
     <?php
         $aspsets_doc = new Document($aspsets);

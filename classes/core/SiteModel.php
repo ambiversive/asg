@@ -13,21 +13,11 @@ class SiteModel {
 
     function initialize($dbh){
         $this->dbh = $dbh;
-        $this->initChats();
+        //$this->initChats();
         $this->initAspects();
         $this->initUsers();
     }
-
-    // if a user has the aspect on, set it to refresh
-    function refreshAspectIfNeccessary($aspect_preference){
-        global $config;
-        $aprefs = $config['tables']['aspect_preferences_table'];
-        $q = "UPDATE $aprefs SET $aspect_preference = '2' WHERE $aspect_preference = '1'";
-        $dbh = $this->dbh;
-        $sth = $dbh->prepare($q);
-        $sth->execute(array());        
-    } 
-   
+    
     function documentExists($id){
         global $config;
         $dbh = $this->dbh;
@@ -310,7 +300,7 @@ class SiteModel {
         }
     }
 
-    function initChats(){
+    /*function initChats(){
         global $config;
         $table = $config['tables']['chats_table'];
 
@@ -322,14 +312,10 @@ class SiteModel {
             $current_chat = new Chat($row['id']);
             $this->chats[] = $current_chat;
         }
-    }
+    }*/
 
     function getMainChat(){
-        if(is_array($this->chats)){
-            return $this->chats[0];
-        }else{
-            return $this->chats;
-        }
+        return new Chat(1);
     }
 
     function getAspects($userAccess){
@@ -380,8 +366,18 @@ class SiteModel {
     }
  
 
-    function getChats(){
-        return $this->chats;
+    function getChats($access){
+        $dbh = $this->dbh;
+        global $config;
+        $table = $config['tables']['chats_table'];
+
+        $q = "SELECT id FROM $table WHERE access >= ?";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array($access));
+        while($row = $sth->fetch()){
+            $returnMe[] = new Chat($row['id']);
+        }
+        return $returnMe;
     }
 
     function getBots(){

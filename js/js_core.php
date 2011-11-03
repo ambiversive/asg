@@ -1,9 +1,13 @@
-
+<?php
+    include("../top.php");
+    $chats = $myModel->getChats($access);
+    $num_chats = count($chats);
+?>
         $(document).ready(runScript);
     
         function runScript(){
            var aspects = asgConfig.getAspects();
-           asgPoller.lpStart(1);
+           asgPoller.lpStart(<?php for($i = 0; $i < $num_chats; $i++){ $ret .=  "1,"; } $ret = substr($ret, 0, -1); print $ret; ?>);
            asgPoller.apStart();
            asgConfig.loadCssRules();
            for ( var asp in aspects ) {
@@ -39,12 +43,8 @@
                    }else{
                        $.post("chat/submit_chat.php", { msg: msg } );
                    }
-                   $('#lastmsg').val(msg);
                    chatmsg.val('');
                }
-             if(event.keyCode == 38){
-                 $('#chatmsg').val($('#lastmsg').val());
-             }
  
            });
            

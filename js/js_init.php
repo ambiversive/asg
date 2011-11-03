@@ -99,6 +99,9 @@ var asgConfig = {
             var pref = aspect.pref;
             var exists = $('#'+div).length;
 
+            if(asgConfig.initialized){
+                asgConfig.onPreference(pref);
+            }
             if(exists){ $('#'+div).remove(); }
    
             allasps.append('<div id=\"'+div+'\" class=\"'+css+'\"></div>');

@@ -28,7 +28,7 @@ class Publisher {
     }
 
     function renderMenu(){
-        print "<div id=\"pubmenu\" style=\"position: fixed; top: 0; left: 80%; width: 20%; background: #333; color: white; float: right;\">";
+        print "<div id=\"pubmenu\">";
         print "<ul>";
         foreach($this->public_docs as $doc){
             $doc_title = $doc->get('title');

@@ -4,9 +4,9 @@ class ChatMessage extends DbTable {
 
     protected $_table;
 
-    function __construct($id){
+    function __construct($id,$table){
         global $config;
-        $this->_table = $config['tables']['chat_messages_table'];
+        $this->_table = $table;
         parent::__construct($id);
     }
 
@@ -24,6 +24,18 @@ class ChatMessage extends DbTable {
 
     function getTimestamp(){
         return $this->get('timestamp');
+    }
+
+    function getUnixTimeStamp(){
+        $table = $this->_table;
+        $dbh = $this->_dbh;
+        $id = $this->_id;
+ 
+        $q = "SELECT UNIX_TIMESTAMP(timestamp) FROM $table WHERE id='$id'";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array());
+        $row = $sth->fetch();
+        return $row['UNIX_TIMESTAMP(timestamp)'];
     }
  
     function getTimestampString(){

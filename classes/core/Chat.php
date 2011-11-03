@@ -17,58 +17,49 @@ class Chat extends DbTable {
         return $this->get('id');
     }
 
-    function getAspect(){
-        return $this->get('aspect');
-    }
-
     function getTable(){
         return $this->get('table');
     }
 
-    function getHistoryDocId(){
-        return $this->get('history_doc_id');
+    function hasMsgAfter($id){
+        $dbh = $this->_dbh;
+        $table = $this->get('table');
+        $q = "SELECT id FROM $table WHERE id > '$id' ORDER BY id ASC LIMIT 1";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array());
+        if($sth->rowCount() > 0){
+            $row = $sth->fetch();
+            return $row['id'];
+        }else{
+            return false;
+        }        
     }
+
 
     function getMessageCount(){
         $dbh = $this->_dbh;
-        $table = $this->_table;
-      
-        $q = "SELECT Count(*) FROM $table";
-        $sth = $dbh->query($q);
-        $row = $sth->fetch();
-        return $row['Count(*)'];
-    }
-
-
-    function getLastTen(){
-        $dbh = $this->_dbh;
         $table = $this->get('table');
-        $last_ten = null;
-
-        $sql = "SELECT * FROM $table ORDER BY id DESC LIMIT 10";
-        $result = $dbh->query($sql);
-        foreach($result as $row){
-            $msg = new ChatMessage($row['id']);
-            $last_ten[] = $msg;
-        }
-        return $last_ten;
+      
+        $q = "SELECT id FROM $table";
+        $sth = $dbh->query($q);
+        return $sth->rowCount();
     }
 
     function getLastX($x){
         $dbh = $this->_dbh;
         $table = $this->get('table');
-        $last_ten = null;
+        $last_x = null;
 
         $sql = "SELECT * FROM $table ORDER BY id DESC LIMIT $x";
         $sth = $dbh->prepare($sql);
         $sth->execute(array());
 
         while($row = $sth->fetch()){
-            $msg = new ChatMessage($row['id']);
-            $last_ten[] = $msg;
+            $msg = new ChatMessage($row['id'],$table);
+            $last_x[$msg->getUnixTimestamp()] = $msg;
         }
 
-        return $last_ten;
+        return $last_x;
     }
 
     function submit($user, $chat_message, $is_emote){
@@ -77,7 +68,6 @@ class Chat extends DbTable {
         $chat_message = str_replace('?','&#63;',$chat_message);
         $chat_message = str_replace('@','&#64;',$chat_message);
         $chat_message = str_replace('$','&#36;',$chat_message);
-        $chat_message = str_replace('\'','&#8217;',$chat_message);
 
         $min = $options['minimum_chat_interval'];
         $max = $options['maximum_message_size'];
@@ -146,6 +136,16 @@ class Chat extends DbTable {
         $dbh = $this->_dbh;
         $q = "TRUNCATE $table";
         $dbh->exec($q);
+    }
+
+    function getIdOfLastMsg(){
+        $dbh = $this->_dbh;
+        $table = $this->get('table');
+        $q = "SELECT id FROM $table ORDER BY id DESC";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array());
+        $row = $sth->fetch();
+        return $row['id'];
     }
 }
 
