@@ -1,4 +1,26 @@
 <?php
+/*
+    File: add_bot.php
+    Author: ambiversive
+
+    Related files:
+        ../classes/core/Bot.php
+        ../classes/core/User.php
+        ../classes/core/Document.php
+
+    Expecting: $_POST['bot_name'];
+
+    Description:
+        This file adds a bot, which is represented by a user,
+        a location in the document tree, and an entry in the bots table. 
+
+        Each bot has a location under Codex->bots, which holds the modes
+        for the bot, so this file creates both the home directory as well
+        as the default mode directory, which are themselves both documents.
+
+        (In ASG documents double as directories if they have no content).
+    
+*/
 
     include_once('../top.php');
     if($access == 0){

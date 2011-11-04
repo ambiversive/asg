@@ -1,4 +1,16 @@
 <?php
+/*
+    File: set_style.php
+    Author: ambiversive
+
+    Expecting: 
+        $_POST['style']
+
+    Description:
+        This file specifies a the id of the style sheet 
+        for a user.
+*/
+
 include_once("../top.php");
 
 if($_SESSION['session_loggedIn']==$uniqueID){

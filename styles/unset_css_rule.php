@@ -1,5 +1,18 @@
 <?php
+/*
+    File: unset_css_rule.php
+    Author: ambiversive
 
+    Expecting:
+        $_POST['attr']
+        $_POST['css_ident']
+
+    Description: 
+
+        This file deletes a specific CSS Rule, or all of them.
+        Todo: Queries should be performed via CssRule class.
+
+*/
     include_once("../top.php");
     $css_rules_table = $config['tables']['css_rules_table'];
 

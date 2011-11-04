@@ -1,5 +1,19 @@
 <?php
+/*
+    File: update.php
+    Author: ambiversive
+ 
+    Expecting:
+        $_POST['table']
+        $_POST['column']
+        $_POST['row_id']
+        $_POST['value']
 
+    Description:
+        This file provides a convenient way to update an arbitrary
+        value in an arbitrary table.
+
+*/
 include_once("../top.php");
 
 

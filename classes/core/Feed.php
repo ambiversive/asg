@@ -18,6 +18,16 @@ class Feed extends DbTable {
         return $rs;
     }
 
+    static function newFeed($feed_url, $feed_title, $feed_category, $user_id){
+
+        $dbh = db_connect();
+        
+        global $config;
+        $feeds_table = $config['tables']['rss_feeds_table'];
+        $q = "INSERT INTO $feeds_table VALUES ('',?,?,?,?)";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array($feed_url, $feed_category, $user_id, $feed_title));
+    }
 /*
  function printLinks(){
   $rss = new lastRSS;

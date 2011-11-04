@@ -1,4 +1,5 @@
 <?php
+
     if($_SESSION['session_loggedIn']==$uniqueID){
         $css = $_SESSION['css_id'];
         $css_doc = new Document($css);

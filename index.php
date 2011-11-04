@@ -1,5 +1,5 @@
 <?php
- include('top.php');
+ include_once("top.php");
 ?>
 <!doctype html>
 <html>

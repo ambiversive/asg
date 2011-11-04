@@ -1,5 +1,21 @@
 <?php
+/*
+    File: top.php
+    Author: ambiversive
 
+    Related files:
+        ./database/db_connect.php
+        ./database/config.php
+        ./captcha/Captcha.php
+        ./clases/core
+   
+    Description:
+        This file is included by pretty much all the others,
+        it initiates the session, creates the database handler,
+        and various global objects like $user and $myModel, which 
+        are then used by the aspect code to render the site.
+        
+*/
     session_start();
     include_once("database/db_connect.php");
     include_once("database/config.php");

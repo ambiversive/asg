@@ -1,4 +1,27 @@
 <?php
+/*
+    File: chat_poll.php
+    Author: ambiversive
+
+    Related files:
+        ../database/config.php
+        ../database/db_connect.php
+        ../classes/core/DbTable.php
+        ../classes/core/User.php
+        ../classes/core/Bot.php
+        ../classes/core/Chat.php
+        ../classes/core/ChatMessage.php
+        ../js/js_polling.php
+
+    Description:
+        This is the server side of the long-polling script, which
+        is requested by the client side javascript, and returns a JSON
+        object which contains information about the new message. 
+
+        This file checks for new messages in multiple tables based on
+        which chats the usr has access to. 
+*/ 
+
     include_once("../database/config.php");
     include_once("../database/db_connect.php");
     $dbh = db_connect();

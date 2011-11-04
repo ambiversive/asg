@@ -11,7 +11,11 @@
     and table names.  
 */
 
-ini_set(’session.gc_maxlifetime’, 30*60);
+ini_set('session.gc_maxlifetime', 30*60);
+ini_set('session.cookie_httponly', TRUE);
+ini_set('session_cookie_secure', TRUE);
+
+$uniqueID = "wetwefweplweghkwiojhworejhwhweH";
 
 $config = array(
     "db" => array(
@@ -41,6 +45,7 @@ $config = array(
         "css_rules_table" => "css_rules",
         "links_table" => "links",
         "link_votes_table" => "link_votes",
-        "rss_feeds_table" => "rss_feeds"
+        "rss_feeds_table" => "rss_feeds",
+        "admin_messages_table" => "admin_messages"
    )
 );

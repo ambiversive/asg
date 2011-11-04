@@ -1,5 +1,23 @@
 <?php
+/*
+    File: set_css_rule.php
+    Author: ambiversive
 
+    Expecting:
+        $_POST['css_ident']
+        $_POST['attr']
+        $_POST['value']
+
+    Description:
+        This file adds a css rule to the css rules table.
+        CSS Rules are applied for users on top of their 
+        selected style sheet. This allows them to tweak an
+        existing style without creating an entirely new one.
+
+        Todo: The db interactions should be performed in the
+        CssRule class. Also some form of validation should 
+        determine if the information is valid.
+*/
 include_once("../top.php");
 
 if($_SESSION['session_loggedIn']==$uniqueID){
