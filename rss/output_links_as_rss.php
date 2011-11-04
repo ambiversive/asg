@@ -2,9 +2,11 @@
     include_once("../top.php"); 
     $baseUrl = $config['urls']['baseUrl'];
     $rss_desc = $options['rss_description'];
+    header("Content-type: text/xml"); 
+    $out = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?>";
+    print $out;
 ?>
 
-<?xml version="1.0" encoding="ISO-8859-1" ?>
 <rss version="2.0">
 
 <channel>
