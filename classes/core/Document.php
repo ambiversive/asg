@@ -186,7 +186,7 @@ class Document extends DbTable {
     }
 
     function outputSelectList($select_name, $access){
-        $children = $this->getChildren($access);
+        $children = $this->getChildren(0);
         print "<select id=\"$select_name\" name=\"$select_name\">";
         foreach($children as $child_doc){
             $title = $child_doc->getTitle();
