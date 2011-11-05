@@ -147,5 +147,17 @@ class Chat extends DbTable {
         $row = $sth->fetch();
         return $row['id'];
     }
+
+    function getAllMessages(){
+        $dbh = $this->_dbh;
+        $table = $this->get('table');
+        $q = "SELECT id FROM $table ORDER BY id ASC";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array());
+        while($row = $sth->fetch()){
+            $returnMe[] = new ChatMessage($row['id'],$table);
+        }
+        return $returnMe;
+    }
 }
 

@@ -12,11 +12,25 @@ class Feed extends DbTable {
 
     function getRss(){
         $rss = new lastRSS;
-        $rss->cache_dir = './cache';
+        $rss->cache_dir = '../cache/';
         $rss->cache_time = 3600;
+        $rss->CDATA = 'strip';
+        $rss->stripHTML = TRUE;
         $rs = $rss->get($this->get('url'));
         return $rs;
     }
+
+    function delete(){
+        $dbh = $this->_dbh;
+        $id = $this->_id;
+        global $config;
+        $table = $config['tables']['rss_feeds_table'];
+        
+        $q = "DELETE FROM $table WHERE id=?";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array($id)); 
+    }
+
 
     static function newFeed($feed_url, $feed_title, $feed_category, $user_id){
 
@@ -28,6 +42,8 @@ class Feed extends DbTable {
         $sth = $dbh->prepare($q);
         $sth->execute(array($feed_url, $feed_category, $user_id, $feed_title));
     }
+
+    
 /*
  function printLinks(){
   $rss = new lastRSS;
