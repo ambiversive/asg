@@ -89,18 +89,23 @@ var asgPoller = {
     },
 
     apStart: function() {
+        //Notifier.success('aspect polling start');
         $.ajax({
             type: "POST",
             url: "aspects/aspect_poll.php",
             dataType: "json",
             data: { uid: asgConfig.getUserId() },
             timeout: 25000, // in milliseconds
-            success: asgPoller.apOnComplete
+            success: asgPoller.apOnComplete,
+            error: function(request, status, err){
+                asgPoller.apStart();
+            }
         });
 
     },
 
     apOnComplete: function(response) {
+        //Notifier.success('aspect polling finish');
         for(var asp in response) {
            asgConfig.renderAspect(response[asp]);
            asgConfig.onPreference(response[asp].pref);
