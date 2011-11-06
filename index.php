@@ -12,7 +12,12 @@
             include("css/dynamic_style.php");
         ?>
     </style>
+<?php
+    if($_SESSION['session_loggedIn']==$uniqueID){
+?>
+
     <script type="text/javascript" src="apps/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="apps/notifier.js"></script>
     <script type="text/javascript" src="apps/jquery.localscroll-1.2.7-min.js"></script>
     <script type="text/javascript" src="apps/jquery.scrollTo-min.js"></script>
     <script type="text/javascript" src="js/js_init.php"></script>
@@ -25,6 +30,7 @@
     <script type="text/javascript" src="apps/ace/mode-html.js" charset="utf-8"></script>
     <script type="text/javascript" src="apps/ace/mode-javascript.js" charset="utf-8"></script>
     <script type="text/javascript" src="apps/ace/mode-php.js" charset="utf-8"></script>
+<?php } ?>
 </head>
 
 <body>
