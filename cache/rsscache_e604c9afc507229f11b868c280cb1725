@@ -1,0 +1,199 @@
+a:7:{s:8:"encoding";s:0:"";s:5:"title";s:10:"Planet PHP";s:4:"link";s:21:"http://planet-php.net";s:11:"description";s:25:"People blogging about PHP";s:8:"language";s:2:"en";s:5:"items";a:10:{i:0;a:4:{s:5:"title";s:28:"Faster Arrays - Davey Shafik";s:4:"link";s:56:"http://daveyshafik.com/archives/30320-faster-arrays.html";s:11:"description";s:2791:"Arrays, long considered the work horse of PHP have one flaw: they can be incredibly slow. There is however an alternative — at least, for a small subset of use cases. SplFixedArray.
+You use SplFixedArray like so:
+
+
+
+The SplFixedArray class provides a super-fast, fixed size array implementation. There are some limitations however, first you must use numeric keys and secondly you cannot use anonymous assignment (i.e. $array[] = 'value';).
+You’ll notice one requirement was missing, that it should have a fixed size. While having a fixed size is what will bring you the speed increase it’s actually not a requirement that the size be fixed. Though you must specify a size to the constructor, you can change it (and lose most — if not all — speed benefits) at any time using SplFixedArray->setSize().
+So, what sort of speed increase are we talking about? In my testing of arrays 100, 100… 1,000,000 elements, you will see a speed increase about 20-25%; for arrays smaller than 100, it will actually be slower by 25-40%.
+The benchmarking was very simple, a comparison of a read and write iteration for both normal and fixed arrays of different sizes like so:
+
+
+
+Additionally, the memory usage to run the benchmarks for array vs SplFixedArray is significantly different, regular arrays clock in at 198MB while SplFixedArray uses a mere 83MB, that’s a 59% memory saving.
+In practical terms, you’re only going to be worried about the speed of arrays when you’re dealing with larger arrays anyway, so the speed loss for the lower digits isn’t a big concern… but where exactly could this be useful?
+There is one common scenario where you will commonly be dealing with large numerically indexed arrays of data: Your database result sets. Using PDO, you can tell how many results you have before you retrieve the row data using PDOStatement->rowCount(). 
+
+
+
+Unfortunately, it is not possible to set the result set container for PDOStatement->fetchAll() to use SplFixedArray — however, if someone wants to help (that is, someone who knows internals and… well, C), I’ve got an opening for a coach!
+At the urging of my co-worker Helgi, I threw the arrays into a FilterIterator and got some pretty interesting results. Using similar code to the first benchmark, but instead of just reading out the array, we created and used a custom FilterIterator:
+
+
+
+For regular arrays, we must first create an iterator:
+
+
+
+For the SplFixedArray, we passed it straight into the EvenFilterIterator, otherwise the code is the same.
+Even with the extra overhead of creating the ArrayIterator, the SplFixedArray is only marginally (1%) faster till it reaches the 10000 elements mark, and then it starts to become marginally slower (again 1%). So, I guess the take-away is: use with caution.";s:7:"pubDate";s:31:"Mon, 07 Nov 2011 12:50:33 +0000";}i:1;a:4:{s:5:"title";s:60:"Using MySQL multiple statements with PHP mysqli - Ulf Wendel";s:4:"link";s:79:"http://blog.ulf-wendel.de/2011/using-mysql-multiple-statements-with-php-mysqli/";s:11:"description";s:353:"The series Using X with PHP mysqli continues. After notes on calling stored procedures and using prepared statements,  its time for a multiple statement quickstart. A mighty tool, if used with care…
+
+	Using Multiple Statements with mysqli
+	
+MySQL optionally allows having multiple statements in one statement string. Sending multiple statements at ...";s:7:"pubDate";s:31:"Mon, 07 Nov 2011 09:26:59 +0000";}i:2;a:4:{s:5:"title";s:45:"Multiple PHP versions set-up - Derick Rethans";s:4:"link";s:55:"http://derickrethans.nl/multiple-php-version-setup.html";s:11:"description";s:2852:"
+  
+    
+      Multiple PHP versions set-up
+      
+      
+         London, UK
+        Monday, November 7th 2011, 09:11 GMT
+      
+      For many of my projects (both hobby and commercial) I need to support many different PHP configurations. Not only just different PHP versions, but also debug builds, ZTS builds and 32-bit builds. In order to be able to test and build extensions against all those different PHP configurations I have adopted a simple method that I'm sharing with you here.
+      The major part of it is that I use a different installation prefix for every configuration of PHP that I make. Right now, ls /usr/local/php shows:
+      5.1dev  5.3.2  5.3.8dev  5.3dev-32bit    5.3dev-zts  5.4dev      trunk
+5.2dev  5.3.7  5.3dev    5.3dev-nodebug  5.4.0beta1  5.4dev-zts
+
+
+      There are two types of PHP installs that I make: "dev" versions from SVN branches, and "release" versions build from SVN tags. From the list above you see I have the SVN versions of 5.1, 5.2, 5.3.8, 5.3 (in various forms) and 5.4 (both normal, and ZTS).
+      I have a script to compile PHP which whatever combination I want: version, debug (default) or non-debug, normal (default) or ZTS; and 64-bit (default) or 32-bit. The configure options are nicely hardcoded :-)
+      The scripts accept arguments in a specific order:
+      version ["debug"|"nodebug" [, "no-zts"|"zts" [, ""|"32bit" ] ] ]
+
+
+      For a simple 5.3dev build I run:
+      ./build 5.3dev
+
+
+      This compiles PHP 5.3 from SVN, in debug mode, without ZTS and for the 64-bit architecture. Something more exotic variants could be:
+      ./build 5.3.8 debug zts
+./build 5.4dev nodebug no-zts 32bit
+
+
+      Each invocation of the script will configure and build PHP, and then install into /usr/local/php/{{variant}}.
+      The script also has a hard coded location where the PHP sources are. In my case, that's a sparse checkout into /home/derick/dev/php/php-src.
+      With the help of a small .bashrc snippet:
+      function pe () {
+        version=$1
+        shift
+
+        if [ "$#" == "0" ]; then
+                export PATH=/usr/local/php/${version}/bin:/usr/local/bin:/usr/bin:/bin
+        else
+                PATH=/usr/local/php/${version}/bin:$PATH $@
+        fi
+}
+
+
+      I can now easily switch between PHP versions by typing on the shell:
+      pe 5.3dev
+
+
+      or:
+      pe 5.4dev-zts
+
+
+      And each version will have a totally separated environment for me to install PEAR packages and PECL extensions in, and do my own extension development. Of course, each separated environment also comes with its own php.ini file (in /usr/local/php/{{variant}}/lib/php.ini).
+      This set-up makes my life a whole lot easier, and I hope it is useful for you as well. Thanks for listening!
+      
+        
+        
+          
+            
+          
+        
+      
+      
+      
+    
+  
+";s:7:"pubDate";s:31:"Mon, 07 Nov 2011 09:11:00 +0000";}i:3;a:4:{s:5:"title";s:23:"PHAR and FreeBSD - till";s:4:"link";s:66:"http://till.klampaeckel.de/blog/archives/172-PHAR-and-FreeBSD.html";s:11:"description";s:1564:"I noticed that archivers/pecl-phar vanished from the ports tree on one of my FreeBSD servers.
+
+Problem?
+
+Reasons to remove the port were:
+
+
+the port is unmaintained
+the port was based on the outdated phar extension from pecl
+phar (in pecl) contains open security issues
+
+
+The simple solution is to create a new port which of course will use the phar which is bundled in PHP's core. And I will get to that (but feel free to beat me at it ;-)).
+
+Solution
+
+In the meantime, here's a simple solution to get phar on FreeBSD.
+
+At first, make sure you're running PHP 5.3.8 (installed from lang/php5). Then fetch the PHP source and compile the phar extension only.
+
+
+foo# fetch http://de2.php.net/get/php-5.3.8.tar.gz/from/de.php.net/mirror
+foo# tar zxvf php-5.3.8.tar.gz
+...
+foo# cd php-5.3.8/
+foo# ./configure --disable-all --enable-phar=shared
+...
+foo# make
+...
+
+
+If all goes well the modules/ directory contains a phar.so file (among other phar-things).
+
+The remaining steps are to copy phar.so to your extension_dir and load it in extension.ini:
+
+
+foo# cp modules/phar.so /usr/local/lib/php/20090626/
+
+
+Feel free to double-check the location of directory:
+
+
+foo# php -r 'echo ini_get("extension_dir");'
+
+
+Finally, make sure PHP loads far by adding the following to /usr/local/etc/php/extensions.ini:
+
+
+extension=phar.so
+
+
+Fin
+
+That's all. Once you restart php, or your webserver, phar should show up in phpinfo().
+
+And as soon as a new php5-phar port is added (probably in archivers), you should make sure to delete phar.so and also remove the line added to the .ini.";s:7:"pubDate";s:31:"Sun, 06 Nov 2011 17:26:51 +0000";}i:4;a:4:{s:5:"title";s:75:"PEAR Development on Github - Official Blog of the PEAR Group/PEAR President";s:4:"link";s:63:"http://blog.pear.php.net/2011/11/05/pear-development-on-github/";s:11:"description";s:496:"Like many other projects, many components of PEAR have started a migration to github.
+We have two primary organisations set up for PEAR and PEAR2.
+While the existing PEAR packages will continue to use the pear.php.net distribution and bug tracking capabilities; it’s never been easier to contribute to a PEAR package – simply fork; add your changes and send us a pull request.
+If your preferred packages aren’t yet on github, please feel free to drop us a line on the pear-dev mailing list.";s:7:"pubDate";s:31:"Sun, 06 Nov 2011 00:52:47 +0000";}i:5;a:4:{s:5:"title";s:56:"Building a Tumblelog with Gimme Bar and PHP - Ed Finkler";s:4:"link";s:75:"http://funkatron.com/posts/building-a-tumblelog-with-gimme-bar-and-php.html";s:11:"description";s:3315:"
+
+One of the coolest things about working on Gimme Bar has been the opportunity to build a platform. While most folks interact with our service via the web site, the site is just one application built on top of the Gimme Bar content collection and curation system. Our web site interacts with the system via our HTTP API, which is open to everyone, not just our internal team. That means that anyone can build applications on top of our platform to suit their own needs or interests.
+
+To demonstrate this, I built GimmeMe, a simple tumblelog-type web app that’s powered by Gimme Bar. It uses methods in our API that don’t require authentication, so you don’t need to register with us to use it. And it’s a drop-in, set-one-option-and-go install, so you don’t need to fiddle with a bunch of stuff to use it (but you can if you want).
+
+I have a running demo on my web server at http://funkatron.com/GimmeMe. It shows the 50 most recent pieces of content I’ve grabbed with Gimme Bar.
+
+Installation
+
+To install the web app yourself, you’ll need a web server with:
+
+PHP 5.2.x or above
+  APC 3.0.8 or above
+Install as follows:
+
+Download the source code as a .zip or .tar.gz from the project’s download page
+  Decompress the files somewhere under your web server’s document root
+  Edit the $config['username'] value in index.php
+4 .Optionally set the $config['gb_addthis_pubid'] value to include AddThis widgets, if you’re into that kind of thing
+  Load the appropriate URL in your web browser to view the install on your web server
+The Code
+
+If you’re a developer type, you’ll probably want to poke around the source code in the GitHub repo. The main work is done by libs/GimmeMe.php, which handles grabbing data from the API, caching it, and rendering the html.
+
+In GimmeMe::getAssets(), we load the data using the GET /public/assets/:username method. This returns a JSON object with an array of asset data in the records propert. We decode the response JSON into a PHP object (the $assets variable), and add a couple properties that we’ll use in the html template. Then we cache the object in APC, and return it. Next time around, if the cached object has not expired, it will just pull it from APC and return it, so we don’t make more requests to the API than necessary.
+
+The GimmeMe::render() method loops through the assets we retrieved and makes each one into a GimmeAsset object. GimmeAssets are view objects used by the Mustache templating library to encapsulate display logic, so we set up special methods or data massage in there. After we set those up for each asset, the entire data structure is passed to the Mustache library for rendering, using the ‘page’ template defined in templates\templates.php.
+
+Right now I also am including a a simple router class at vendors\Router.php. We’ll need this for stuff that would involve different URLs, like paging back through assets or loading single-asset pages, but I haven’t quite gotten that far.
+
+I’d be remiss in not mentioning http://hereslookingathue.com/, a collection of beautiful imagery collected and organized by Gimme Bar user hereslookingathue. It’s another cool example powered by our public API methods.
+
+Hopefully this gives you a taste ofTruncated by Planet PHP, read more at the original (another 966 bytes)";s:7:"pubDate";s:31:"Sat, 05 Nov 2011 04:00:00 +0000";}i:6;a:4:{s:5:"title";s:98:"1.1.2-*stable* release of the replication and load balancing plugin for PHP! - Internet Super Hero";s:4:"link";s:103:"http://blog.ulf-wendel.de/2011/112-stable-release-of-the-replication-and-load-balancing-plugin-for-php/";s:11:"description";s:393:"PECL/mysqlnd 1.1.2-stable has been released. The mysqlnd replication and load balancing plugin for PHP 5.3/5.4 finally got the download label it deserves: stable, ready for production use! PECL/mysqlnd_ms makes using any kind of MySQL database cluster easier.
+
+	
+	Download PECL/mysqlnd from pecl.php.net
+	Documentation at the PHP Reference Manual
+	
+	Key features
+	
+The release motto of the ...";s:7:"pubDate";s:31:"Fri, 04 Nov 2011 20:07:22 +0000";}i:7;a:4:{s:5:"title";s:60:"Using MySQL prepared statements with PHP mysqli - Ulf Wendel";s:4:"link";s:79:"http://blog.ulf-wendel.de/2011/using-mysql-prepared-statements-with-php-mysqli/";s:11:"description";s:288:"Starting with PHP mysqli is easy, if one has some SQL and PHP skills. To get started one needs to know about the specifics of MySQL and a few code snippets. Using MySQL stored procedures with PHP mysqli has found enough readers to begin with a “quickstart” or “how-to” series. ...";s:7:"pubDate";s:31:"Fri, 04 Nov 2011 14:14:42 +0000";}i:8;a:4:{s:5:"title";s:67:"Using MySQL stored procedures with PHP mysqli - Internet Super Hero";s:4:"link";s:77:"http://blog.ulf-wendel.de/2011/using-mysql-stored-procedures-with-php-mysqli/";s:11:"description";s:262:"A couple of weeks ago a friend of mine asked me how to use MySQL stored procedures with PHP’s mysqli API.  Out of curiosity I asked another friend, a team lead, how things where going with their PHP MySQL project, for which they had planned to have most of ...";s:7:"pubDate";s:31:"Thu, 03 Nov 2011 18:42:36 +0000";}i:9;a:4:{s:5:"title";s:48:"D-Day is coming to Finland - Stefan Koopmanschap";s:4:"link";s:61:"http://www.leftontheweb.com/message/DDay_is_coming_to_Finland";s:11:"description";s:256:"I'm happy and proud to announce that I will be speaking at the D-Day conference in Finland. I will be doing my "Don't use a screw when you need a nail" talk there, a talk I've done before at Symfony Live in San Francisco and Paris and highly enjoyed doing.";s:7:"pubDate";s:31:"Thu, 03 Nov 2011 14:13:16 +0000";}}s:11:"items_count";i:10;}

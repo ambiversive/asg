@@ -22,7 +22,7 @@ var asgRss = {
             title = response[link].title;
             title_ = asgRss.addslashes(title);
             url = response[link].url;
-            whereTo.append('<p><a target="_blank" href="http://reddit.com/r/'+sub+'/submit?url='+url+'&title='+title_en+'" title="submit to reddit">&#9664;</a>&nbsp;<a target="_blank" href="'+url+'">'+title+'</a>&nbsp;<a onclick="asgConfig.simcom(\'/bload '+url+'\')" title="load in metabrowser">&#9724;</a>&nbsp;<a title="save locally" onclick="$(this).hide();asgConfig.submitLink(\''+url+'\',\''+title_+'\');">&#9654;</a></p>');
+            whereTo.append('<p><a target="_blank" href="http://reddit.com/r/'+sub+'/submit?url='+url+'&title='+title_en+'" title="submit to reddit/r/'+sub+'">&#9664;</a><a target="_blank" href="'+url+'">&nbsp;'+title+'&nbsp;</a><a onclick="asgConfig.simcom(\'/bload '+url+'\')" title="load in metabrowser">&#9724;</a><a title="save locally" onclick="$(this).hide();asgConfig.submitLink(\''+url+'\',\''+title_+'\');">&#9654;</a></p>');
         }
     },
 
@@ -35,3 +35,4 @@ var asgRss = {
     }
          
 }
+
