@@ -69,3 +69,4 @@
     $aspsets = $options['aspect_sets_id'];
     $access = $_SESSION['session_accessLevel'];
     $aspects = $myModel->getAspects($access);
+    $loggedIn = $_SESSION['session_loggedIn']==$uniqueID;

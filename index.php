@@ -13,30 +13,29 @@
         ?>
     </style>
 <?php
-    if($_SESSION['session_loggedIn']==$uniqueID){
+    if($loggedIn){
+        foreach($config['private_javascript'] as $js_file){
 ?>
+            <script type="text/javascript" src="<?=$js_file?>" charset="utf-8"></script>
 
-    <script type="text/javascript" src="apps/jquery-1.6.4.min.js"></script>
-    <script type="text/javascript" src="apps/notifier.js"></script>
-    <script type="text/javascript" src="apps/jquery.localscroll-1.2.7-min.js"></script>
-    <script type="text/javascript" src="apps/jquery.scrollTo-min.js"></script>
-    <script type="text/javascript" src="js/js_init.php"></script>
-    <script type="text/javascript" src="js/js_polling.php"></script>
-    <script type="text/javascript" src="js/js_core.php"></script>
-    <script type="text/javascript" src="js/js_rss.js"></script>
-    <script type="text/javascript" src="apps/ace/ace.js" charset="utf-8"></script>
-    <script type="text/javascript" src="apps/ace/theme-twilight.js" charset="utf-8"></script>
-    <script type="text/javascript" src="apps/ace/mode-css.js" charset="utf-8"></script>
-    <script type="text/javascript" src="apps/ace/mode-html.js" charset="utf-8"></script>
-    <script type="text/javascript" src="apps/ace/mode-javascript.js" charset="utf-8"></script>
-    <script type="text/javascript" src="apps/ace/mode-php.js" charset="utf-8"></script>
-<?php } ?>
+<?php
+        }
+    }else{
+        foreach($config['public_javascript'] as $js_file){
+?>
+            <script type="text/javascript" src="<?=$js_file?>" charset="utf-8"></script>
+
+<?php
+        }
+    } 
+
+?>
 </head>
 
 <body>
 
 <?php 
-    if($_SESSION['session_loggedIn']!=$uniqueID){
+    if(!$loggedIn){
         $myPublisher = new Publisher($myModel);
         $myPublisher->render();
     }else{ 
