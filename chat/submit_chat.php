@@ -18,15 +18,22 @@
             handled automatically eventually.
     */
     include_once("../top.php");
+
     $msg = $_POST["msg"];
-    $x = strpos($msg, '!');
-    if($x === 0 && $access == 0){
-        $msg = substr($msg, 1); 
-        $chat = new Chat(2);
-        $chat->submit($user,$msg,0);
+    $mod = $_POST["mod"];
 
-    }else{
+    $access = $_SESSION['session_accessLevel'];
+    $chats = $myModel->getChats($access);
+    foreach($chats as $chat){
+        $chat_id = $chat->get('id');
+        $mod = $chat->get('modulator');
 
-        $chat = $myModel->getMainChat();
-        $chat->submit($user,$msg,0);
+        if($mod == $chat_mod){
+            
+            $chat = new Chat($chat_id);
+            $chat_access = $chat->get('access');
+            if($access <= $chat_access){
+                $chat->submit($user,$msg,0);
+            }
+        }
     }

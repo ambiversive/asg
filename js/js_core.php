@@ -16,13 +16,27 @@
                    asgConfig.renderAspect(aspects[asp]); 
                }
            }
-         
+           modulator = $('#modulator');    
            chatmsg = $('#chatmsg');
+           modval = modulator.val();
            chatmsg.focus();
+           modulator.focus(function(event){
+	       this.select();
+           });
+           modulator.keyup(function(event){
+               modval = $('#modulator').val();
+               $.post('user/set_modulator.php', { modulator: modval });
+               if(event.keyCode == 39){
+                   chatmsg.focus();
+               }
+           });
            chatmsg.keyup(function(event) {
                asgConfig.initialized = true;
-               if(event.keyCode == 13){ 
+               if(event.keyCode == 37){
+                   modulator.focus();
+               }else if(event.keyCode == 13){ 
                    msg = chatmsg.val();
+                   mod = modulator.val();
                    index = msg.indexOf('/');
                    if(index==0){
                        cmd = msg.slice(1);
@@ -41,7 +55,7 @@
                            asgConfig.executeCommand(msg);
                        }
                    }else{
-                       $.post("chat/submit_chat.php", { msg: msg } );
+                       $.post("chat/submit_chat.php", { msg: msg , mod: mod} );
                    }
                    chatmsg.val('');
                }

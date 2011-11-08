@@ -15,5 +15,3 @@
         }
         
     }
-    chatline("adds $toggle to subs.");
-?>

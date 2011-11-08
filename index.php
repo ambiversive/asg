@@ -1,5 +1,6 @@
 <?php
  include_once("top.php");
+ $modulator = $_SESSION['modulator'];
 ?>
 <!doctype html>
 <html>
@@ -42,7 +43,7 @@
 ?>
 
     <div id="command_line">
-    <input id="chatmsg"> 
+    <input id="modulator" value="<?=$modulator?>"><input id="chatmsg"> 
     <div id="aspect_sets">
     <?php
         $aspsets_doc = new Document($aspsets);
