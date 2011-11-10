@@ -322,7 +322,7 @@ class SiteModel {
         global $config;
         $table = $config['tables']['aspects_table'];
 
-        $q = "SELECT id FROM $table WHERE access >= ?";
+        $q = "SELECT id FROM $table WHERE access >= ? ORDER BY id";
         $dbh = $this->dbh;
         $sth = $dbh->prepare($q);
         $sth->execute(array($userAccess));

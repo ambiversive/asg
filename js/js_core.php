@@ -28,7 +28,10 @@
                $.post('user/set_modulator.php', { modulator: modval });
                if(event.keyCode == 39){
                    chatmsg.focus();
+               }else if(event.keyCode == 40){
+                   $(this).val('!');
                }
+ 
            });
            chatmsg.keyup(function(event) {
                asgConfig.initialized = true;

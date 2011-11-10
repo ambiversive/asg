@@ -43,7 +43,7 @@
 ?>
 
     <div id="command_line">
-    <input id="modulator" value="<?=$modulator?>"><input id="chatmsg"> 
+    <input id="modulator" title="modulator alters where chat messages go" value="<?=$modulator?>"><input id="chatmsg"> 
     <div id="aspect_sets">
     <?php
         $aspsets_doc = new Document($aspsets);
