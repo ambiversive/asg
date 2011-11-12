@@ -30,6 +30,8 @@
                    chatmsg.focus();
                }else if(event.keyCode == 40){
                    $(this).val('!');
+               }else if(event.keyCode == 37){
+                   $(this).val('?');
                }
  
            });
@@ -57,6 +59,10 @@
                        }else{
                            asgConfig.executeCommand(msg);
                        }
+                   }else if(mod == '?'){
+                       smsg = msg.replace(' ', '+');
+                       asgConfig.zeroAspects();
+                       window.location='index.php?query='+smsg;
                    }else{
                        $.post("chat/submit_chat.php", { msg: msg , mod: mod} );
                    }

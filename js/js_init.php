@@ -193,8 +193,8 @@ var asgConfig = {
     },
 
     zeroAspects: function() {
-        $('#all_aspects').remove();
-        $('body').append('<div id="all_aspects"></div>');
+            $('#all_aspects').remove();
+            $('body').append('<div id="all_aspects"></div>')
         
     }
 
