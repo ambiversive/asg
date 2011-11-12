@@ -1,10 +1,10 @@
 <?php
 
 abstract class DbTable {
-    static protected $_cols;
-    static protected $_fields;
-    static protected $_dbh;
-    static protected $_id;
+    protected $_cols;
+    protected $_fields;
+    protected $_dbh;
+    protected $_id;
 
     public function __construct($id, $dbhx = null) {
         global $config;

@@ -1,5 +1,5 @@
 <?php
-include_once("lastRSS.php");
+include_once("myRss.php");
 
 class Feed extends DbTable {
     protected $_table;
@@ -11,13 +11,8 @@ class Feed extends DbTable {
     }
 
     function getRss(){
-        $rss = new lastRSS;
-        $rss->cache_dir = '../cache/';
-        $rss->cache_time = 3600;
-        $rss->CDATA = 'strip';
-        $rss->stripHTML = TRUE;
-        $rs = $rss->get($this->get('url'));
-        return $rs;
+        $rss = new myRss($this->get('url'));
+        return $rss->getItems();
     }
 
     function delete(){

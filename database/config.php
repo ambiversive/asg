@@ -19,9 +19,9 @@ $uniqueID = "wetwefweplweghkwiojhworejhwhweH";
 
 $config = array(
     "db" => array(
-            "dbname" => "",  
-            "username" => "",  
-            "password" => "",  
+            "dbname" => "improvis_simp",  
+            "username" => "root",  
+            "password" => "sql1682m",  
             "host" => "localhost"  
         ),
     "urls" => array(  
