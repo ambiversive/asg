@@ -37,11 +37,26 @@
            });
            chatmsg.keyup(function(event) {
                asgConfig.initialized = true;
-               if(event.keyCode == 37){
+
+               ch = asgConfig.cmd_history;
+               cv = chatmsg.val();
+               x = 1;
+               ls = ch[ch.length-x];
+               if(event.keyCode == 40){
+                   chatmsg.val(prev);
+               }else if(event.keyCode == 38){
+                   while(cv == ls){
+                       x++;
+                       ls = ch[ch.length-x];
+                   }
+                   chatmsg.val(ls);
+                   prev = ls;
+               }else if(event.keyCode == 37){
                    modulator.focus();
                }else if(event.keyCode == 13){ 
                    msg = chatmsg.val();
                    mod = modulator.val();
+                   asgConfig.cmd_history.push(msg);
                    index = msg.indexOf('/');
                    if(index==0){
                        cmd = msg.slice(1);
@@ -61,8 +76,8 @@
                        }
                    }else if(mod == '?'){
                        smsg = msg.replace(' ', '+');
-                       asgConfig.zeroAspects();
-                       window.location='index.php?query='+smsg;
+                       alert('This is where I would search for '+smsg);
+                       //window.location='index.php?query='+smsg;
                    }else{
                        $.post("chat/submit_chat.php", { msg: msg , mod: mod} );
                    }

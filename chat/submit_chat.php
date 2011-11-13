@@ -15,7 +15,7 @@
             receives the message.
     */
     include_once("../top.php");
-
+    $user->updateLastActive();
     $msg = $_POST["msg"];
     $mod = $_POST["mod"];
 
@@ -23,11 +23,10 @@
     $chats = $myModel->getChats($access);
     foreach($chats as $chat){
         $chat_id = $chat->get('id');
-        $mod = $chat->get('modulator');
+        $chat_mod = $chat->get('mod_char');
 
         if($mod == $chat_mod){
-            
-            $chat = new Chat($chat_id);
+            $msg = $msg;           
             $chat_access = $chat->get('access');
             if($access <= $chat_access){
                 $chat->submit($user,$msg,0);

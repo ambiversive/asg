@@ -33,7 +33,7 @@ var asgPoller = {
             }else if(is_emote==="1"){
                 $('#'+output_element).append("<div class=\"msg_env\"><div class=\"timestamp\">"+stamp+"</div><div class=\"username\">"+user+"&nbsp;</div><div class=\"msg\">"+msg+"</div></div>");
             }
-        document.getElementById(output_element).scrollTop = document.getElementById(output_element).scrollHeight;
+        document.getElementById('chat_full').scrollTop = document.getElementById('chat_full').scrollHeight;
         }
 
         asgPoller.lpStart(
@@ -57,7 +57,6 @@ var asgPoller = {
     $ret = null;
 ?>
 ) {
-        $.post('user/update_lastactive.php');
         $.ajax({
             type: "POST",
             url: "chat/chat_poll.php",

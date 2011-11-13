@@ -32,6 +32,7 @@
     $chats_table = $config['tables']['chats_table'];
     $uid = $_POST['uid'];
     $user = new User($uid);
+    $user->updateLastActive();
     $access = $user->get('access_level');
 
     $q = "SELECT id FROM $chats_table WHERE access >= '$access'";

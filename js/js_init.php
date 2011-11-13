@@ -6,8 +6,9 @@
 
 var asgConfig = {
     initialized: false,
-    
-   updateArb: function(xprompt, xdefault, table, column, row_id){
+    cmd_history: ['/zero'],
+   
+    updateArb: function(xprompt, xdefault, table, column, row_id){
        var xvalue = window.prompt(xprompt,xdefault);
        if (xvalue != '' && xvalue != null) {
          $.post("database/update.php", { table: table, column: column, row_id: row_id, value: xvalue }, function (){  });
