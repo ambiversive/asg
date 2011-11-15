@@ -7,6 +7,24 @@
 var asgConfig = {
     initialized: false,
     cmd_history: ['/zero'],
+    history_index: 1,
+
+    // this is to decrease number of requests when loading multiple
+    // aspects at once
+    renderMultiple: function(cmds){
+
+        var urlString = 'content/output_multiple.php?';
+        for each ( x in cmds){
+            urlString = urlString+'oid[]='+x+'&';           
+        }
+        urlString = urlString.substring(0,urlString.length-1);
+        $.ajax({
+                url: urlString,
+                success: function(data){ 
+                   $('#all_aspects').prepend(data); 
+                }
+              });
+    },
    
     updateArb: function(xprompt, xdefault, table, column, row_id){
        var xvalue = window.prompt(xprompt,xdefault);
@@ -119,7 +137,7 @@ var asgConfig = {
                 if(asgConfig.initialized){
                     moi = $('#'+d);
                     if(moi.css('position')!='fixed'){
-                        $.scrollTo(moi, 800 );
+                        $.scrollTo(moi, 800, { axis: 'y', offset: { top: -30, left: 0 } });
                     }
                 }
             });

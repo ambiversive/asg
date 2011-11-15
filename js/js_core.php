@@ -37,20 +37,19 @@
            });
            chatmsg.keyup(function(event) {
                asgConfig.initialized = true;
-
+               x = asgConfig.history_index;
                ch = asgConfig.cmd_history;
                cv = chatmsg.val();
-               x = 1;
-               ls = ch[ch.length-x];
+               ls = ch[ch.length-asgConfig.history_index];
                if(event.keyCode == 40){
                    chatmsg.val(prev);
                }else if(event.keyCode == 38){
                    while(cv == ls){
-                       x++;
-                       ls = ch[ch.length-x];
+                      asgConfig.history_index++;
+                      ls = ch[ch.length-asgConfig.history_index];
                    }
                    chatmsg.val(ls);
-                   prev = ls;
+
                }else if(event.keyCode == 37){
                    modulator.focus();
                }else if(event.keyCode == 13){ 
