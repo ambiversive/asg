@@ -15,7 +15,7 @@ var asgConfig = {
 
         var urlString = 'content/output_multiple.php?';
         for each ( x in cmds){
-            urlString = urlString+'oid[]='+x+'&';           
+            urlString = urlString+'cmds[]='+x+'&';           
         }
         urlString = urlString.substring(0,urlString.length-1);
         $.ajax({
@@ -103,6 +103,7 @@ var asgConfig = {
         }
         $ret = substr($ret,0,-1);
         echo $ret;
+        $ret = null;
         print "};";
 ?>
         return returnJSON;
@@ -201,12 +202,17 @@ var asgConfig = {
             $set_name = $set->get('name');
             $cmds = $set->getCmds();
             print "if(aspect_set_id == $set_id){";
-            if(is_array($cmds)){
+            if($cmds == null){
+                print "asgConfig.zeroAspects(); }";
+            }else{
                 foreach($cmds as $cmd){
-                    print "asgConfig.renderAspectByCmd('$cmd');";
+                    $ret .= "'$cmd',";
                 }
+                $ret = substr($ret, 0, -1);
+             
+                print "asgConfig.renderMultiple([$ret]); }";
+                $ret = null;
             }
-            print "}";
         }
 ?>
     },

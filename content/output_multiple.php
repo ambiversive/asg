@@ -1,50 +1,46 @@
 <?php
 include('../top.php');
 
-    foreach($_GET['oid'] as $oid){
-        if($myModel->documentExists($oid)){
+if(!$loggedIn){ die('wtf'); }
+
+    foreach($_GET['cmds'] as $cmd){
             
-            $q = "SELECT * FROM aspects WHERE function = ?";
+            $q = "SELECT * FROM aspects WHERE command = ?";
             $sth = $dbh->prepare($q);
-            $sth->execute(array($oid));
+            $sth->execute(array($cmd));
             if($sth->rowCount() == 1){
                 $row = $sth->fetch();
                 $div = $row['div'];
-            }else{
-                $div = $oid;
-            }
-            $doc = new Document($oid);
-            print "<div id=\"$div\">";
-            print "<div id=\"min_$div\" class=\"rollbar\"><div class=\"x\">X</div></div>";
-            $doc->outputAndEval();
-            print "</div>";
-            print "</div>";
-        }
-    }
+                $oid = $row['function'];
+                $pref = $row['pref_column'];
+                $css = $row['css_class'];
 
-/*
-    $zoid = (int)$_GET['oid'];
-    $alwaysEval = $_GET['always'];
-
-    if($myModel->documentExists($zoid)){
-        $doc = new Document($zoid);
-        $doc_access = $doc->get('access');
-        $zeval = $doc->get('eval');
-    }
-
-
-//    if($access <= $doc_access){
-
-        if($alwaysEval!="true"){
-
-            if($zeval==1){
+                $doc = new Document($oid);
+                print "<div id=\"$div\" class=\"$css\">";
+                print "<div id=\"min_$div\" class=\"rollbar\"><div id=\"x_$div\" class=\"x\">&#10006;</div></div>";
+                print "<div id=\"".$div."_full\">";
                 $doc->outputAndEval();
-            }else{ 
-                print $doc->getContent();
-            }
+                print "</div>";
+                print "</div>";
+?>
+<script type="text/javascript">
+    asgConfig.onPreference('<?=$pref?>');
+    x_div = $('#x_<?=$div?>');
+    min_div = $('#min_<?=$div?>');
 
-        }else{
-            $doc->outputAndEval();
-        }
-//    }
-*/
+    x_div.click(function (event) { 
+        $('#<?=$div?>').remove();
+        asgConfig.offPreference('<?=$pref?>');
+        event.stopPropagation(); 
+    });
+
+    min_div.click(function(event){
+        $('#<?=$div?>_full').toggle();            
+    });
+
+</script>
+
+<?php
+          }
+
+    }
