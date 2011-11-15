@@ -21,6 +21,7 @@ var asgConfig = {
         $.ajax({
                 url: urlString,
                 success: function(data){ 
+                   $('#all_aspects').html('');
                    $('#all_aspects').prepend(data); 
                 }
               });
