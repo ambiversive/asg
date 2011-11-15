@@ -37,14 +37,20 @@
            });
            chatmsg.keyup(function(event) {
                asgConfig.initialized = true;
-               x = asgConfig.history_index;
                ch = asgConfig.cmd_history;
                cv = chatmsg.val();
+
+               if(ch.length == asgConfig.history_index){
+                   asgConfig.history_index = 1;
+               }
+
                ls = ch[ch.length-asgConfig.history_index];
                if(event.keyCode == 40){
-                   chatmsg.val(prev);
+
                }else if(event.keyCode == 38){
+
                    while(cv == ls){
+                      
                       asgConfig.history_index++;
                       ls = ch[ch.length-asgConfig.history_index];
                    }
