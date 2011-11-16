@@ -1,1 +1,3 @@
 Set up the .SQL and database/config then login with admin/admin.
+
+Make sure you have PHP5 and ensure magic_quotes_gpc is OFF and display errors is OFF.
