@@ -3,6 +3,16 @@
     $chats = $myModel->getChats($access);
     $num_chats = count($chats);
 ?>
+function urlencode (str) {
+    // http://kevin.vanzonneveld.net
+    str = (str + '').toString();
+
+    return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').
+    replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
+}
+
+
+
         $(document).ready(runScript);
     
         function runScript(){
@@ -25,14 +35,22 @@
            });
            modulator.keyup(function(event){
                modval = $('#modulator').val();
-               $.post('user/set_modulator.php', { modulator: modval });
                if(event.keyCode == 39){
                    chatmsg.focus();
                }else if(event.keyCode == 40){
                    $(this).val('!');
+                   chatmsg.focus();
+                   Notifier.success('Mode: Message admins');
                }else if(event.keyCode == 37){
                    $(this).val('?');
+                   chatmsg.focus();
+                   Notifier.success('Mode: Search');
+               }else if(event.keyCode == 38){
+                   $(this).val('');
+                   chatmsg.focus();
+                   Notifier.success('Mode: Main chat');
                }
+               $.post('user/set_modulator.php', { modulator: modval });
  
            });
            chatmsg.keyup(function(event) {
@@ -80,9 +98,8 @@
                            asgConfig.executeCommand(msg);
                        }
                    }else if(mod == '?'){
-                       smsg = msg.replace(' ', '+');
-                       alert('This is where I would search for '+smsg);
-                       //window.location='index.php?query='+smsg;
+                       smsg = urlencode(msg);
+                       window.location='index.php?query='+smsg;
                    }else{
                        $.post("chat/submit_chat.php", { msg: msg , mod: mod} );
                    }

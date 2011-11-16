@@ -60,6 +60,12 @@
         $is_null = $current_doc->isNullContent();
     }
 
+    $query = $_GET['query'];
+    if(isset($query)){
+        $_SESSION['query']=$query;
+        $user->setAspectPreference('show_search',1);
+    }
+
     $options = $myModel->getSiteOptions();
     $title = $options['title'];
     $js = $options['javascript_doc_id'];
