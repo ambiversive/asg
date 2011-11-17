@@ -38,6 +38,7 @@ var asgPoller = {
 
         asgPoller.lpStart(
 <?php
+    $ret = '';
     foreach($chats as $chat){
         $ret .= "asgPoller.last_msg_$chat,";
     }
@@ -49,6 +50,7 @@ var asgPoller = {
 
     lpStart: function(
 <?php
+    $ret = '';
     foreach($chats as $chat){
        $ret .= "last_msg_$chat,";
     }
@@ -62,6 +64,7 @@ var asgPoller = {
             url: "chat/chat_poll.php",
             data: {  
 <?php 
+    $ret = '';
     foreach($chats as $chat){ 
         $ret .= "last_msg_$chat: last_msg_$chat,"; 
     }
@@ -75,6 +78,7 @@ var asgPoller = {
             error: function(request, status, err) {
                 asgPoller.lpStart(
 <?php
+    $ret = '';
     foreach($chats as $chat){
        $ret .= "asgPoller.last_msg_$chat,";
     }

@@ -17,7 +17,7 @@ function urlencode (str) {
     
         function runScript(){
            var aspects = asgConfig.getAspects();
-           asgPoller.lpStart(<?php for($i = 0; $i < $num_chats; $i++){ $ret .=  "1,"; } $ret = substr($ret, 0, -1); print $ret; ?>);
+           asgPoller.lpStart(<?php $ret=''; for($i = 0; $i < $num_chats; $i++){ $ret .=  "1,"; } $ret = substr($ret, 0, -1); print $ret; ?>);
            asgPoller.apStart();
            asgConfig.loadCssRules();
            for ( var asp in aspects ) {

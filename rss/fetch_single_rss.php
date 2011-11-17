@@ -7,6 +7,7 @@
     $subreddit = $feed->get('subreddit');
     $link_num = 1;
     echo "{";
+    $ret = '';
     foreach($rs as $item){
        $ret .= "\"link$link_num\":";
        $arr['title'] = $item['title'];

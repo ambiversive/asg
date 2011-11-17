@@ -26,7 +26,10 @@
     }
 
     $dbh = db_connect();
-    $uid = $_SESSION['session_userid'];
+    if(isset($_SESSION['session_userid'])){
+        $uid = $_SESSION['session_userid'];
+    }
+
     $myModel = new SiteModel($dbh);
 
     if(isset($uid)){
@@ -35,10 +38,12 @@
         $user = null;
     }
 
-    $id = $_GET['id'];
-    $cdoc = $_SESSION['current_document'];
+    if(isset($_SESSION['current_document'])){
+        $cdoc = $_SESSION['current_document'];
+    }
 
-    if(isset($id) && $id!=0){
+    if(isset($_GET['id']) && $_GET['id']!=0){
+        $id = $_GET['id'];
         if($id != $cdoc){
             $_SESSION['current_document'] = $id;
             $user->setAspectPreference('show_ls',1);
@@ -60,19 +65,25 @@
         $is_null = $current_doc->isNullContent();
     }
 
-    $query = $_GET['query'];
-    if(isset($query)){
+    if(isset($_GET['query'])){
+        $query = $_GET['query'];
         $_SESSION['query']=$query;
+        $user->zeroAspectPreferences();
         $user->setAspectPreference('show_search',1);
     }
 
     $options = $myModel->getSiteOptions();
     $title = $options['title'];
-    $js = $options['javascript_doc_id'];
     $dstyle = $options['default_style'];
     $front = $options['front_page_id'];
     $bots_doc_id = $options['bots_doc_id'];
     $aspsets = $options['aspect_sets_id'];
-    $access = $_SESSION['session_accessLevel'];
-    $aspects = $myModel->getAspects($access);
-    $loggedIn = $_SESSION['session_loggedIn']==$uniqueID;
+    if(isset($_SESSION['session_accessLevel'])){
+        $access = $_SESSION['session_accessLevel'];
+        $aspects = $myModel->getAspects($access);
+    }
+    if(isset($_SESSION['session_loggedIn'])){
+        $loggedIn = $_SESSION['session_loggedIn']==$uniqueID;
+    }else{
+        $loggedIn = false;
+    }

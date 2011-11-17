@@ -466,7 +466,11 @@ class SiteModel {
             $lid = $row['id'];
             $returnMe[] = new Link($lid);
         }
-        return $returnMe;
+        if(isset($returnMe)){
+            return $returnMe;
+        }else{
+           return array();
+        }
     }
 
 }

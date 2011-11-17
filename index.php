@@ -1,6 +1,10 @@
 <?php
  include_once("top.php");
- $modulator = $_SESSION['modulator'];
+ if(isset($_SESSION['modulator'])){
+     $modulator = $_SESSION['modulator'];
+ }else{
+     $modulator = '';
+ }
 ?>
 <!doctype html>
 <html>

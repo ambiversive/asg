@@ -2,6 +2,7 @@
     include("../top.php");
     $aspect_sets = $myModel->getAspectSets($access);
     $commands = $myModel->getCommands($access);
+    $css_rules = $user->getCssRules();
 ?>
 
 var asgConfig = {
@@ -89,6 +90,7 @@ var asgConfig = {
         var returnJSON =
 <?php
         print "{";
+        $ret = '';
         foreach($aspects as $asp){        
             $id = $asp->get('id'); 
             $command = $asp->get('command');

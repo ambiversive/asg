@@ -7,7 +7,7 @@ include('../top.php');
     if($myModel->documentExists($zoid)){
         $doc = new Document($zoid);
         $doc_access = $doc->get('access');
-        $zeval = $doc->get('eval');
+        $zeval = $doc->get('evaluate');
     }
 
 

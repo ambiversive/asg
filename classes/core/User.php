@@ -142,7 +142,11 @@ class User extends DbTable {
         while($row = $sth->fetch()){
             $returnMe[] = new CssRule($row['id']);
         }
-        return $returnMe;
+        if(isset($returnMe)){
+            return $returnMe;
+        }else{
+            return null;
+        }
         
     }
 

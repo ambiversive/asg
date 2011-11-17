@@ -61,7 +61,15 @@ class AspectSet extends DbTable {
                 }
             }
         }
-        return array_reverse($cmds);
+        if(isset($cmds)){
+            if(is_array($cmds)){
+                return array_reverse($cmds);
+            }else{
+                return $cmds;
+            }
+        }else{
+            return null;
+        }
     }
 
     static function newAspectSet($name, $access){
