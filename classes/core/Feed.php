@@ -33,7 +33,7 @@ class Feed extends DbTable {
         
         global $config;
         $feeds_table = $config['tables']['rss_feeds_table'];
-        $q = "INSERT INTO $feeds_table VALUES ('',?,?,?,?)";
+        $q = "INSERT INTO $feeds_table VALUES ('',?,?,?,?,'0')";
         $sth = $dbh->prepare($q);
         $sth->execute(array($feed_url, $feed_category, $user_id, $feed_title));
     }

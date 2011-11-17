@@ -56,12 +56,15 @@ class Link extends DbTable {
         $dbh = db_connect();
         $table = $config['tables']['links_table'];
 
-        $handle = fopen($url, "r");
+/*
+         $handle = fopen($url, "r");
          if($handle){
           $full_text = stream_get_contents($handle);
          }else{
           $full_text = '';
         }
+*/
+        $full_text = "";
         $query = "INSERT INTO $table VALUES ('',?,?,?,?,NOW(),'1','0')";
         $sth = $dbh->prepare($query); 
         $sth->execute(array($url, $title, $full_text, $user_id));

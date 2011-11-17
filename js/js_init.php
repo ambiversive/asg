@@ -7,7 +7,7 @@
 
 var asgConfig = {
     initialized: false,
-    cmd_history: ['/zero'],
+    cmd_history: ['/zero','/bye','/chat'],
     history_index: 1,
 
     // this is to decrease number of requests when loading multiple
