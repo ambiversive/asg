@@ -30,6 +30,17 @@
                 array_push($arrFeeds, $itemRSS);
            }
 
+           if(empty($itemRSS)){//try atom
+            foreach ($doc->getElementsByTagName('entry') as $node) {
+                $itemRSS = array ( 
+                    'title' => strip_tags($node->getElementsByTagName('title')->item(0)->nodeValue),
+                    'link' => $node->getElementsByTagName('link')->item(0)->getAttribute('href')
+                );
+                array_push($arrFeeds, $itemRSS);
+             }
+
+           }
+
            return $arrFeeds;
 
            
