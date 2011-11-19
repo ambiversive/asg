@@ -6,7 +6,7 @@ var asgRss = {
                 url: "rss/fetch_single_rss.php",
                 data: { feed_id: feed_id  },
                 dataType: "json",
-                timeout: 2500, 
+                timeout: 25000, 
                 success: function(response){ asgRss.success(response,feed_id); }
             });
     },
