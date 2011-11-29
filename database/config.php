@@ -19,9 +19,9 @@ $uniqueID = "wetwefweplweghkwiojhworejhwhweH";
 
 $config = array(
     "db" => array(
-            "dbname" => "",  
-            "username" => "",  
-            "password" => "",  
+            "dbname" => "improvis_simp",  
+            "username" => "root",  
+            "password" => "sql1682m",  
             "host" => "localhost"  
         ),
     "urls" => array(  
@@ -46,7 +46,12 @@ $config = array(
        "links_table" => "links",
        "link_votes_table" => "link_votes",
        "rss_feeds_table" => "rss_feeds",
-       "admin_messages_table" => "admin_messages"
+       "admin_messages_table" => "admin_messages",
+       "item_types_table" => "item_types",
+       "item_instances_table" => "item_instances",
+       "item_relation_types_table" => "item_relation_types",
+       "item_relations_table" => "item_relations"
+
    ),
    "private_javascript" => array(
        "apps/jquery-1.6.4.min.js",

@@ -64,7 +64,7 @@ function urlencode (str) {
 
                ls = ch[ch.length-asgConfig.history_index];
                if(event.keyCode == 40){
-
+                   chatmsg.val('');                  
                }else if(event.keyCode == 38){
 
                    while(cv == ls){
@@ -74,7 +74,7 @@ function urlencode (str) {
                    }
                    chatmsg.val(ls);
 
-               }else if(event.keyCode == 37){
+               }else if(event.keyCode == 37 && chatmsg.val()==''){
                    modulator.focus();
                }else if(event.keyCode == 13){ 
                    msg = chatmsg.val();

@@ -65,6 +65,51 @@ class SiteModel {
         return $returnMe;
     }
 
+    function getItemInstances(){
+
+        $dbh = $this->dbh;
+        global $config;
+        $table = $config['tables']['item_instances_table'];
+        $q = "SELECT id FROM $table ORDER BY id";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array());
+        while($row = $sth->fetch()){
+            $returnMe[] = new ItemInstance($row['id']);
+        }
+
+        return $returnMe;
+    }
+
+    function getItemRelations(){
+
+        $dbh = $this->dbh;
+        global $config;
+        $table = $config['tables']['item_relations_table'];
+        $q = "SELECT id FROM $table ORDER BY id";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array());
+        while($row = $sth->fetch()){
+            $returnMe[] = new ItemRelation($row['id']);
+        }
+
+        return $returnMe;
+    }
+
+    function getItemRelationTypes(){
+
+        $dbh = $this->dbh;
+        global $config;
+        $table = $config['tables']['item_relation_types_table'];
+        $q = "SELECT id FROM $table ORDER BY id";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array());
+        while($row = $sth->fetch()){
+            $returnMe[] = new ItemRelationType($row['id']);
+        }
+
+        return $returnMe;
+    }
+
 
     function getSiteOptions(){
         $dbh = $this->dbh;

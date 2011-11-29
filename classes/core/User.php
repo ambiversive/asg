@@ -307,6 +307,20 @@ class User extends DbTable {
 
     }
 
+    function getInventory(){
+        global $config;
+        $id = $this->_id;
+        $dbh = $this->_dbh;
+        $item_inst_table = $config['tables']['item_instances_table'];
+        $q = "SELECT id FROM $item_inst_table WHERE owner_id = ?";
+        $sth = $dbh->prepare($q);
+        $sth->execute(array($id));
+        while($row = $sth->fetch()){
+            $returnMe[] = new ItemInstance($row['id']);
+        }
+        return $returnMe;
+    }
+
     function delete(){
         global $config;
         $users_table = $config['tables']['users_table'];

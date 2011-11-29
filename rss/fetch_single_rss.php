@@ -10,7 +10,7 @@
     $ret = '';
     foreach($rs as $item){
        $ret .= "\"link$link_num\":";
-       $arr['title'] = $item['title'];
+       $arr['title'] = str_replace('"','',$item['title']);
        $arr['url'] = $item['link'];
        $arr['title_en'] = urlencode($item['title']);
        $arr['subreddit'] = $subreddit;
