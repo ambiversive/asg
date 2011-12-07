@@ -1,4 +1,5 @@
 <?php
+    header("Content-Type: application/x-javascript");
     include("../top.php");
     $q = "SELECT id FROM chats WHERE access >= ?";
     $sth = $dbh->prepare($q);

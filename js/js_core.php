@@ -1,4 +1,5 @@
 <?php
+    header("Content-Type: application/x-javascript");
     include("../top.php");
     $chats = $myModel->getChats($access);
     $num_chats = count($chats);

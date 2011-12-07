@@ -1,4 +1,5 @@
 <?php
+    header("Content-Type: application/x-javascript");
     include("../top.php");
     $aspect_sets = $myModel->getAspectSets($access);
     $commands = $myModel->getCommands($access);
@@ -15,8 +16,9 @@ var asgConfig = {
     renderMultiple: function(cmds){
 
         var urlString = 'content/output_multiple.php?';
-        for each ( x in cmds){
-            urlString = urlString+'cmds[]='+x+'&';           
+        for(var x in cmds){
+            y = cmds[x];
+            urlString = urlString+'cmds[]='+y+'&';           
         }
         urlString = urlString.substring(0,urlString.length-1);
         $.ajax({

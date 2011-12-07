@@ -19,9 +19,9 @@ $uniqueID = "wetwefweplweghkwiojhworejhwhweH";
 
 $config = array(
     "db" => array(
-            "dbname" => "improvis_simp",  
-            "username" => "root",  
-            "password" => "sql1682m",  
+            "dbname" => "",  
+            "username" => "",  
+            "password" => "",  
             "host" => "localhost"  
         ),
     "urls" => array(  
@@ -67,7 +67,7 @@ $config = array(
        "js/js_rss.js"
    ),
    "public_javascript" => array(
-       "apps/jquery-1.6.4.min.s",
+       "apps/jquery-1.6.4.min.js",
        "apps/jquery.localscroll-1.2.7-min.js", 
        "apps/jquery.scrollTo-min.js"
    ),

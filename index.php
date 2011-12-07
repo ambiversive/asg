@@ -21,7 +21,7 @@
     if($loggedIn){
         foreach($config['private_javascript'] as $js_file){
 ?>
-            <script type="text/javascript" src="<?=$js_file?>" charset="utf-8"></script>
+            <script src="<?=$js_file?>"></script>
 
 <?php
         }
