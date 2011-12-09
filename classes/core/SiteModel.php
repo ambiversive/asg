@@ -28,6 +28,22 @@ class SiteModel {
         if($sth->rowCount() == 1){ return true; }else{ return false; }
     }
 
+    function isValidAspectPreference($pref){
+        global $config;
+        $dbh = $this->dbh;
+        $aspect_prefs_table = $config['tables']['aspect_preferences_table'];
+        $dbname = $config['db']['dbname'];
+     
+        $colsql = "select column_name from information_schema.columns where table_name='$aspect_prefs_table' AND table_schema='$dbname'";
+        $sth = $dbh->prepare($colsql);
+        $sth->execute(array());
+        while($colsrow = $sth->fetch()){
+            $cols[] = $colsrow['column_name'];
+        }
+
+        if(in_array($pref,$cols)){ return true; }else{ return false; }
+    }
+
     function updateArbitrary($table, $column, $id, $value){
         $dbh = $this->dbh;
         $q = "UPDATE $table SET $column = '$value' WHERE id='$id'";

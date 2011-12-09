@@ -3,5 +3,7 @@
     include_once("../top.php");
 
     $pref = $_POST["pref"];        
-    $user->setAspectPreference($pref, 0);
-    $_SESSION[$pref]=0;
+    if($myModel->isValidAspectPreference($pref)){
+        $user->setAspectPreference($pref, 0);
+        $_SESSION[$pref]=0;
+    }

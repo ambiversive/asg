@@ -1,6 +1,7 @@
 <?php
 
     include("../top.php");
+    if(!($loggedIn && $access <= 1)){ die(); }
 
     $type_id = $_POST['type_id'];
     $owner_id = $_SESSION['session_userid'];

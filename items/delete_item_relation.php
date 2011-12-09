@@ -1,6 +1,8 @@
 <?php
 
     include("../top.php");
+    if(!($loggedIn && $access <= 1)){ die(); }
+
     $relation_id = $_POST['relation_id'];
     $relation = new ItemRelation($relation_id);
    

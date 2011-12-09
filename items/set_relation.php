@@ -1,5 +1,6 @@
 <?php
     include("../top.php");
+    if(!($loggedIn && $access <= 1)){ die(); }
 
     $item_type_a_id = $_POST['item_a'];
     $item_type_b_id = $_POST['item_b'];

@@ -127,7 +127,7 @@ CREATE TABLE `aspect_preferences` (
 
 LOCK TABLES `aspect_preferences` WRITE;
 /*!40000 ALTER TABLE `aspect_preferences` DISABLE KEYS */;
-INSERT INTO `aspect_preferences` VALUES (1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(2,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(3,51,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+INSERT INTO `aspect_preferences` VALUES (1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(2,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(3,51,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `aspect_preferences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,7 +274,7 @@ CREATE TABLE `chat_messages` (
   `timestamp` datetime NOT NULL,
   `is_emote` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -283,7 +283,6 @@ CREATE TABLE `chat_messages` (
 
 LOCK TABLES `chat_messages` WRITE;
 /*!40000 ALTER TABLE `chat_messages` DISABLE KEYS */;
-INSERT INTO `chat_messages` VALUES (1,1,'..','2011-12-06 22:47:17',0);
 /*!40000 ALTER TABLE `chat_messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -681,7 +680,7 @@ CREATE TABLE `user_preferences` (
 
 LOCK TABLES `user_preferences` WRITE;
 /*!40000 ALTER TABLE `user_preferences` DISABLE KEYS */;
-INSERT INTO `user_preferences` VALUES (1,1,'appears.','disappears.',635,'http://feedproxy.google.com/~r/akimbocomics/~3/9Lkbmxvslao/','http://improvise.it/','...'),(13,44,'arrives.','leaves.',507,'http://improvise.it/','http://improvise.it/','...'),(20,51,'arroooves.','zaps.',507,'','','');
+INSERT INTO `user_preferences` VALUES (1,1,'appears.','disappears.',507,'http://telegraph.feedsportal.com/c/32726/f/568301/s/1ac0558f/l/0L0Stelegraph0O0Cnews0Cworldnews0Cnorthamerica0Cusa0C89420A840CJerry0ESandusky0Ehit0Ewith0Emore0Echild0Eabuse0Echarges0Bhtml/story01.htm','http://improvise.it/','...'),(13,44,'arrives.','leaves.',507,'http://improvise.it/','http://improvise.it/','...'),(20,51,'arroooves.','zaps.',507,'','','');
 /*!40000 ALTER TABLE `user_preferences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -715,7 +714,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','$1$7DOK235R$aWOnuIkx3fu7kT0Fbxf/L.','admin',0,'null@null.com',429,100,'2011-12-06 22:47:42','Canada/Newfoundland','127.0.0.1'),(44,'belloc','$1$fbO8RNsl$fezlE7yrXCpv0PZvXmEJA0','Belloc',4,'cort@cort.com',429,1000,'2011-02-10 14:46:11','Canada/Newfoundland',''),(51,'testing','$1$R.V57NsK$wsd12xQvaXRQoM6n3ExNi1','testing',4,'testing',429,100,'2011-11-17 14:54:33','Canada/Newfoundland','127.0.0.1');
+INSERT INTO `users` VALUES (1,'admin','$1$7DOK235R$aWOnuIkx3fu7kT0Fbxf/L.','admin',0,'null@null.com',429,100,'2011-12-09 14:55:33','Canada/Newfoundland','127.0.0.1'),(44,'belloc','$1$fbO8RNsl$fezlE7yrXCpv0PZvXmEJA0','Belloc',4,'cort@cort.com',429,1000,'2011-02-10 14:46:11','Canada/Newfoundland',''),(51,'testing','$1$R.V57NsK$wsd12xQvaXRQoM6n3ExNi1','testing',4,'testing',429,100,'2011-11-17 14:54:33','Canada/Newfoundland','127.0.0.1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -728,4 +727,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-12-06 22:47:47
+-- Dump completed on 2011-12-09 14:55:34
